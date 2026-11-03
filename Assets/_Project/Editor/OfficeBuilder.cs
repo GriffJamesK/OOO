@@ -102,6 +102,14 @@ namespace Kit.Editor
                 EditorUtility.SetDirty(thresholds);
             }
 
+            // The atrium roof is 34 m up and the outside plain is wide: with the default 50 m shadow
+            // distance the sun would leak onto floors the roof should cover.
+            if (UnityEngine.Rendering.GraphicsSettings.defaultRenderPipeline is UnityEngine.Rendering.Universal.UniversalRenderPipelineAsset urp && urp.shadowDistance < 110f)
+            {
+                urp.shadowDistance = 110f;
+                EditorUtility.SetDirty(urp);
+            }
+
             var game = AssetDatabase.LoadAssetAtPath<GameConfig>(OfficeKit.ConfigDir + "/GameConfig.asset");
             if (game == null) return;
             var list = new List<ConfigAsset>(game.Systems ?? new ConfigAsset[0]);
@@ -175,26 +183,63 @@ namespace Kit.Editor
         }
 
         /// <summary>
-        /// A pale, hazy procedural sky (playdead_01: white-grey haze, a faint sun): the skylights
-        /// glow white instead of blue, and the outside reads as fog rather than a clear day.
-        /// Created or updated in place at Materials/Office/Mat_Skybox_Office.mat.
+        /// A pale haze sky (playdead_01: white-grey haze, no blue, no sunset): a small generated
+        /// cubemap with a vertical gradient from a pale horizon to a slightly darker grey zenith,
+        /// on Skybox/Cubemap. The procedural skybox can't do this (thick atmosphere turns orange),
+        /// and skyboxes aren't fogged, so the sky itself has to be the fog's colour. The skylights
+        /// glow white, and the outside reads as one soft haze. Assets: Generated/Sky_Office.cubemap
+        /// and Materials/Office/Mat_Skybox_Office.mat, updated in place.
         /// </summary>
         static Material OfficeSkybox()
         {
+            const int size = 32;
+            string cubePath = OfficeKit.Root + "/Generated/Sky_Office.cubemap";
+            var cube = AssetDatabase.LoadAssetAtPath<Cubemap>(cubePath);
+            if (cube == null)
+            {
+                cube = new Cubemap(size, TextureFormat.RGBA32, false);
+                AssetDatabase.CreateAsset(cube, cubePath);
+            }
+            var zenith = new Color(0.66f, 0.69f, 0.72f);
+            var horizon = new Color(0.82f, 0.83f, 0.84f);
+            var below = new Color(0.74f, 0.75f, 0.76f);
+            var pixels = new Color[size * size];
+            foreach (CubemapFace face in new[] { CubemapFace.PositiveX, CubemapFace.NegativeX, CubemapFace.PositiveY, CubemapFace.NegativeY, CubemapFace.PositiveZ, CubemapFace.NegativeZ })
+            {
+                for (int y = 0; y < size; y++)
+                for (int x = 0; x < size; x++)
+                {
+                    // Direction through this texel; only its height matters for the gradient.
+                    float u = (x + 0.5f) / size * 2f - 1f, v = (y + 0.5f) / size * 2f - 1f;
+                    Vector3 d = face switch
+                    {
+                        CubemapFace.PositiveX => new Vector3(1f, -v, -u),
+                        CubemapFace.NegativeX => new Vector3(-1f, -v, u),
+                        CubemapFace.PositiveY => new Vector3(u, 1f, v),
+                        CubemapFace.NegativeY => new Vector3(u, -1f, -v),
+                        CubemapFace.PositiveZ => new Vector3(u, -v, 1f),
+                        _ => new Vector3(-u, -v, -1f),
+                    };
+                    float h = d.normalized.y;
+                    pixels[y * size + x] = h >= 0f ? Color.Lerp(horizon, zenith, Mathf.Pow(h, 0.6f)) : Color.Lerp(horizon, below, Mathf.Clamp01(-h * 3f));
+                }
+                cube.SetPixels(pixels, face);
+            }
+            cube.Apply();
+            EditorUtility.SetDirty(cube);
+
             string path = OfficeKit.OfficeMaterialDir + "/Mat_Skybox_Office.mat";
+            var shader = Shader.Find("Skybox/Cubemap");
             var mat = AssetDatabase.LoadAssetAtPath<Material>(path);
             if (mat == null)
             {
-                mat = new Material(Shader.Find("Skybox/Procedural"));
+                mat = new Material(shader);
                 AssetDatabase.CreateAsset(mat, path);
             }
-            mat.SetFloat("_SunDisk", 1f);
-            mat.SetFloat("_SunSize", 0.025f);
-            mat.SetFloat("_SunSizeConvergence", 4f);
-            mat.SetFloat("_AtmosphereThickness", 2.6f);
-            mat.SetColor("_SkyTint", new Color(0.62f, 0.64f, 0.66f));
-            mat.SetColor("_GroundColor", new Color(0.72f, 0.74f, 0.76f));
-            mat.SetFloat("_Exposure", 1.05f);
+            mat.shader = shader;
+            mat.SetTexture("_Tex", cube);
+            mat.SetColor("_Tint", new Color(0.5f, 0.5f, 0.5f));
+            mat.SetFloat("_Exposure", 1f);
             EditorUtility.SetDirty(mat);
             return mat;
         }
