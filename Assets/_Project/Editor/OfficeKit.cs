@@ -634,7 +634,14 @@ namespace Kit.Editor
                 profile = ScriptableObject.CreateInstance<VolumeProfile>();
                 AssetDatabase.CreateAsset(profile, path);
             }
-            if (!profile.TryGet(out KitFog fog)) fog = profile.Add<KitFog>(true);
+            if (!profile.TryGet(out KitFog fog))
+            {
+                // Volume components are sub-assets: without AddObjectToAsset the override lives only
+                // in memory and vanishes on the next reimport or Editor restart.
+                fog = profile.Add<KitFog>(true);
+                fog.name = nameof(KitFog);
+                AssetDatabase.AddObjectToAsset(fog, profile);
+            }
             fog.active = true;
             fog.enabled.Override(true);
             fog.start.Override(start);

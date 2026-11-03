@@ -13,5 +13,21 @@ MonoBehaviour:
   m_Name: LookConfig
   m_EditorClassIdentifier: Kit.Gameplay::Kit.Gameplay.Look.LookConfig
   FlickerInterval: 14
+  FlickerMinDuration: 0.1
+  FlickerMaxDuration: 0.6
+  FlickerStepMin: 0.02
+  FlickerStepMax: 0.09
+  FlickerDimLevel: 0.08
   ScreenGlowRate: 0.35
-  LightShaftMaterial: {fileID: 0}
+  ScreenGlowAmount: 0.12
+  LightShaftMaterial: {fileID: 2100000, guid: 88fc986984bbce14fa45b0176d27a77b, type: 2}
+  ShaftBottomWiden: 1.18
+  ShaftIntensity: 1
+  ShaftEdgeSoftness: 0.7
+  ShaftBottomBrightness: 0.35
+  ShaftTopFade: 0.06
+  ShaftBottomFade: 0.12
+  ShaftNearFadeStart: 0.5
+  ShaftNearFadeEnd: 5
+  ShaftFogFade: 0.7
+  ShaftForwardScatter: 1.5
