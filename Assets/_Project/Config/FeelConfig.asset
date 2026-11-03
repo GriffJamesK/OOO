@@ -1,0 +1,61 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3aa33fe6133efb43b1d4ecb06271fc2, type: 3}
+  m_Name: FeelConfig
+  m_EditorClassIdentifier: Kit.Gameplay::Kit.Gameplay.Feel.FeelConfig
+  DustMaterial: {fileID: 2100000, guid: f6697bf346995814ba54894d57487e0b, type: 2}
+  DustColor: {r: 0.78, g: 0.75, b: 0.7, a: 0.3}
+  DustColorDark: {r: 0.62, g: 0.6, b: 0.57, a: 0.24}
+  DustDrag: 3
+  DustGravity: 0.03
+  DustGrowth: 1.7
+  MaxActiveEffects: 12
+  PoolPrewarm: 4
+  LandMinFallSpeed: 9
+  LandFullFallSpeed: 18
+  LandBigFallSpeed: 20
+  LandShake: {x: 0.012, y: 0.03}
+  LandShakeBig: 0.05
+  LandShakeCap: 0.06
+  LandShakeDuration: {x: 0.12, y: 0.2}
+  LandShakeDurationBig: 0.3
+  LandDustCount: {x: 12, y: 22}
+  LandDustCountBig: 30
+  LandDustRadius: 0.35
+  LandDustSpeed: {x: 0.6, y: 1.3}
+  LandDustSize: {x: 0.25, y: 0.55}
+  LandDustLifetime: {x: 0.9, y: 1.3}
+  LandDustConeAngle: 80
+  BigFallScale: 1.35
+  SlideDustCount: 9
+  SlideDustRadius: 0.25
+  SlideDustSpeed: {x: 0.4, y: 0.9}
+  SlideDustSize: {x: 0.18, y: 0.38}
+  SlideDustLifetime: {x: 0.7, y: 1.1}
+  SlideDustAlpha: 0.75
+  TileParticleCount: 7
+  FibreColor: {r: 0.16, g: 0.15, b: 0.15, a: 0.75}
+  TileDustColor: {r: 0.8, g: 0.78, b: 0.74, a: 0.45}
+  TileOffset: 0.03
+  TileRadius: 0.05
+  TileSize: {x: 0.012, y: 0.035}
+  TileSpeed: {x: 0.03, y: 0.12}
+  TileLifetime: {x: 1.6, y: 2.6}
+  TileGravity: 0.02
+  TileNoise: 0.06
+  ExitSwirlEnabled: 1
+  ExitSwirlMinSpeed: 15
+  ExitSwirlCount: 8
+  ExitSwirlRadius: 0.5
+  ExitSwirlOrbit: 1.4
+  ExitSwirlLifetime: {x: 1.2, y: 1.8}
+  ExitSwirlAlpha: 0.5

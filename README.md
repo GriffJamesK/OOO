@@ -1,4 +1,42 @@
-﻿# Unity Prototype Kit
+# OOO
+
+A first-person "metroidbrainia": escape an impossibly vast, empty midcentury-modern brutalist office. Progress is gated only by knowledge. Nothing is explained. There is no HUD and no fail state.
+
+![The atrium](docs/shots/a2_lobby_hero.png)
+
+**Play it:** open the project in Unity 6000.6.4f1, open `Assets/_Project/Scenes/Boot.unity`, and press Play, then Play on the title screen. The world is generated: after changing a builder, run **Kit > Build Office** (and **Kit > Rebuild Kit Assets** for the UI and prefabs).
+
+**Controls (keyboard / gamepad):**
+
+| Action | Keyboard | Gamepad |
+| --- | --- | --- |
+| Move | WASD | left stick |
+| Look | mouse | right stick |
+| Jump | Space | A |
+| Sprint | Shift | left stick press |
+| Slide | Ctrl or C | B |
+| Interact (take or place a letter tile) | E | X |
+| Pause | Esc | Start |
+
+Movement is Source-style: bunny hops, air strafing, slides, slide-jumps, wall runs, wall jumps and surfing on steep ramps.
+
+**Docs:**
+- [docs/GDD.md](docs/GDD.md): the design. [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md): systems, world layout and the door-number plan.
+- [docs/DECISIONS.md](docs/DECISIONS.md): every choice and deviation. [docs/WORKPLAN.md](docs/WORKPLAN.md): who built what. [docs/MORNING_REPORT.md](docs/MORNING_REPORT.md): the overnight build report.
+- Screenshots are in `docs/shots/`.
+
+<details><summary>Spoiler: how the building works, and the way out</summary>
+
+Two numbered openings showing the same number are the same opening: go in one and come out of the other, keeping your speed. Exactly two must match (three cancel out). Letterboard plates have movable tiles (Interact), so you can rewire the building. The building reads the letter O as the digit 0.
+
+The way out: an outside door reads 000. You can see it from the executive boardroom, which you reach by dropping down the stair core into hatch 6. Take three letter O's (from "OUT OF OFFICE" on the lobby directory, reached by a wall run along the south wall, or from the cafeteria menu), press them into the blank plate over the lobby cloakroom door, and walk through.
+
+The fastest route: in the waiting room, step through reception door 1, which is paired with the lobby's front door 1.
+</details>
+
+---
+
+# Unity Prototype Kit
 
 A Unity 6 (6000.6.4f1, URP, 3D) template
 

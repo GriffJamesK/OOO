@@ -197,3 +197,16 @@ Dated, one line each. Add an entry whenever you choose something the spec or GDD
 - 2026-11-02: Flow respawns place the player first and cover it with black (hold `FadeOut`, then fade in), instead of fading out while the player keeps falling. A fall never hitches, and the kit's "back at spawn within a frame" test holds.
 - 2026-11-02: WorldText sizing: fontSize = letterHeight x PixelsPerMetre (clamped 16-160), and characterSize from a cap-height model (`CapHeightPerEm` 0.72, `WorldUnitsPerFontPixel` 0.1), both tunable in WorldTextConfig. The font atlas is bound per renderer with a MaterialPropertyBlock, so the shared style materials are never modified.
 - 2026-11-02: Audio is fully procedural (`ProcSynth`, 22050 Hz mono, seeded): about 95 ms to synthesise everything, ambience built lazily one loop per frame. It never adds an AudioListener.
+
+## Phase 4: integration (2026-11-02)
+
+- 2026-11-02: **Global light level:** realtime-only interiors with no bounce read far too dark. Fixes: Volume_Office `postExposure` +1.5, a build-time `LookConfig.LightIntensityScale` (2.5) that OfficeBuilder applies to every point and spot light after the areas build, and brighter trilight ambient. The building's light level is now one tunable number.
+- 2026-11-02: **Sky:** a generated pale-grey gradient cubemap (`Generated/Sky_Office.cubemap`, Skybox/Cubemap) replaces the procedural sky. With thick atmosphere the procedural sky turned sunset-orange, and skyboxes aren't fogged, so the sky itself has to match the haze (playdead_01).
+- 2026-11-02: URP shadow distance raised to 110 m (OfficeBuilder), so the 34 m atrium roof shades the floors.
+- 2026-11-02: **K5 visibility:** from the boardroom window the 000 door was about 10 px and sat behind a mullion. Mullions moved off the centre line, and a tall stele with a stacked brass 000 plus three large zeros inlaid in the pale ground were added. Both read from the window. The A4 roof limits what's visible to x > 103.6.
+- 2026-11-02: **A4 balcony route:** surfing head-on up a 60° face can't climb more than about 3.5 m (measured with a scripted run: it stalls). The balcony was redesigned around a wall run (see A4).
+- 2026-11-02: `ConfigLookup` reads the asset on disk outside play mode. Play-mode registrations outlive play (domain reload off) and pointed at replaced assets, which broke SignageTests.
+- 2026-11-02: Portal cameras no longer set `stereoTargetEye` (URP warned about it every frame).
+- 2026-11-02: `PlayerLanded(position, fallSpeed)` event added (PlayerController) for impact feel and audio.
+- 2026-11-02: Product name set to "OOO".
+- 2026-11-02: `OfficeBot` (Gameplay/Game) plays scripted runs on a virtual gamepad, so movement-gated routes are checked with the real input path: the shutter slide, the 412 hatch, the transom hop.
