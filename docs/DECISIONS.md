@@ -190,3 +190,10 @@ Dated, one line each. Add an entry whenever you choose something the spec or GDD
 - 2026-11-02: UI: title "OOO" with no subtitle, an Ending card faded by UIRouter on Core `GameCompleted`, and the HUD never shown (`UIRouter.showHud` off). The game-over panel stays in the prefab, unused.
 - 2026-11-02: Namespaces `Kit.Gameplay.Letterboards` and `Kit.Gameplay.Signage` (not `Letterboard`/`WorldText`), so the classes `Letterboard` and `WorldText` don't clash with their namespaces.
 - 2026-11-02: The kit test `BootDefaultsToFirstPerson_WithProfileFog` now checks that fog follows the play scene's own profile instead of a hard-coded 120 m, because Boot now plays the Office.
+
+## Phase 3: system decisions (2026-11-02)
+
+- 2026-11-02: **Deviation from ARCHITECTURE.md (Portals):** portal views render with ENABLED portal cameras (targetTexture, depth below main), chosen in LateUpdate (execution order 10000, after CinemachineBrain) and placed in `beginContextRendering`. `RenderPipeline.SubmitRenderRequest` was rejected: it is recursive inside render callbacks and races Cinemachine in LateUpdate. Surfaces aren't culled by facing, because thresholds are visible from both sides. Views that aren't rendering show a flat fog-coloured fill, never a stale frame.
+- 2026-11-02: Flow respawns place the player first and cover it with black (hold `FadeOut`, then fade in), instead of fading out while the player keeps falling. A fall never hitches, and the kit's "back at spawn within a frame" test holds.
+- 2026-11-02: WorldText sizing: fontSize = letterHeight x PixelsPerMetre (clamped 16-160), and characterSize from a cap-height model (`CapHeightPerEm` 0.72, `WorldUnitsPerFontPixel` 0.1), both tunable in WorldTextConfig. The font atlas is bound per renderer with a MaterialPropertyBlock, so the shared style materials are never modified.
+- 2026-11-02: Audio is fully procedural (`ProcSynth`, 22050 Hz mono, seeded): about 95 ms to synthesise everything, ambience built lazily one loop per frame. It never adds an AudioListener.
