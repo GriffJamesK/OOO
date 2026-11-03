@@ -16,7 +16,7 @@ MonoBehaviour:
   CrossingSearchRadius: 30
   FrameDepth: 0.25
   FrameWidth: 0.12
-  PlateMaterial: {fileID: 0}
+  PlateMaterial: {fileID: 2100000, guid: b7c5a586cdd2df34198edcdcd10596fd, type: 2}
   PlatePadding: 0.45
   PlateGlyphWidth: 0.8
   PlateDepth: 0.012
