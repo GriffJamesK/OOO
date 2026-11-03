@@ -10,7 +10,9 @@ namespace Kit.Gameplay.Flow
         [Tooltip("Seconds the player must stand grounded before a spot counts as safe ground.")]
         public float SafeGroundDwell = 0.3f;
 
-        [Tooltip("Fade to black before a respawn (s).")]
+        [Tooltip("Seconds the screen holds black after a respawn. A respawn places the player and cuts " +
+                 "to black in the same frame (so a fall never hitches and the camera snap is hidden), " +
+                 "holds black this long, then fades in.")]
         public float FadeOut = 0.25f;
 
         [Tooltip("Fade back in after a respawn (s).")]
