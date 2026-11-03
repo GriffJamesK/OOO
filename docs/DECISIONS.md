@@ -157,6 +157,10 @@ Dated, one line each. Add an entry whenever you choose something the spec or GDD
 - 2026-11-02: The GDD agent opens every image and writes a **References** section into `docs/GDD.md`, so later agents get the owner's intent from the GDD without re-reading images. The owner's notes outrank the agent's own reading, and anything under Ignore is never a requirement. Missing or contradictory notes are a question for the owner, not a guess.
 - 2026-11-02: `ReferenceNotesTests` (edit mode) fails when an image has no notes section or a section names a missing image. Headings inside HTML comments (the template example) don't count.
 
+## Owner request: lead agent and maximum parallel work (2026-11-02)
+
+- 2026-11-02: The agent the owner starts acts as the lead (project manager). It splits each phase into the largest set of independent tasks and runs them at the same time; only the owner's GDD review, the shared interface stubs and Editor work stay sequential. This replaces the fixed "four to six workers" cap with "as many as there are independent tasks, in waves past about eight". Tasks are not only systems: level areas (each in its own prefab, builder or additive scene), puzzles and polish items are split out too. One owner per file keeps parallel work from colliding; each code-writing worker uses its own git worktree; `docs/WORKPLAN.md` tracks tasks, owners and dependencies; integration happens as each task lands.
+
 ## Process
 
 - 2026-11-02: The repo is published as a GitHub template. GitHub templates can't include Git LFS files (they don't copy to generated repos), so `docs/sandbox.png` is stored in plain git via a `.gitattributes` exception. Images added in projects made from the template (including `docs/references/`) still use LFS, which works normally there. Any image added to the template itself needs the same exception.

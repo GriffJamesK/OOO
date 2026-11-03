@@ -7,7 +7,7 @@ This repo is a Unity 6 (6000.6.4f1, URP, 3D) template for turning a one-paragrap
 ```
 CLAUDE.md  BACKLOG.md  README.md  .mcp.json  .gitignore  .gitattributes
 Tools/                 offline tools: compile-check.ps1, run-tests.ps1
-docs/                  GDD_TEMPLATE.md, WORKFLOW.md, DECISIONS.md (+ GDD.md, ARCHITECTURE.md per prototype)
+docs/                  GDD_TEMPLATE.md, WORKFLOW.md, DECISIONS.md (+ GDD.md, ARCHITECTURE.md, WORKPLAN.md per prototype)
 docs/references/       owner's reference images + REFERENCES.md (what to take from each, what to ignore)
 Assets/_Project/
   Core/                Kit.Core: EventBus, ObjectPool, Tween, Juice, Timer, StateMachine, ConfigAsset, DebugOverlay
@@ -143,7 +143,11 @@ Play mode only advances while the Editor is ticking. Run In Background is on, bu
 - **Mouse look is live in play mode.** If the owner's mouse is over the Game view, the camera moves. Reset the pan/tilt before screenshots.
 - **Batch runs need a short path.** Clone to a short folder (e.g. `%TEMP%\kc`): deep paths exceed the Windows 260-character limit inside `Library/PackageCache` and fill the log with false errors.
 
-## Concurrency rule
+## Agent roles and concurrency
+
+**Split the work as much as possible.** The owner wants results fast, so the agent the owner starts acts as the **lead** (project manager): it breaks every phase into the largest set of independent tasks, runs them at the same time with worker subagents, and keeps `docs/WORKPLAN.md` current. Work runs in order only where one task truly needs another's result. Details: `docs/WORKFLOW.md`, "Lead agent and parallel work".
+
+- **One owner per file.** Tasks that run at the same time never edit the same file. Each code-writing worker uses its own branch (git worktree).
 
 Only one process may hold the project open. A running Editor locks `Temp/UnityLockfile`, so the batch-mode CLI fails while it is open.
 - **Worker agents write files only**: C#, prefab/asset YAML they generate, configs, tests. They never open the Editor and never call MCP.
