@@ -5,6 +5,7 @@ namespace Kit.Gameplay.Flow
     /// <summary>
     /// A box where standing does not count as safe ground (narrow ledges, the edge of a launch),
     /// so a respawn never drops the player back somewhere that leads straight into another fall.
+    /// Enabled zones register with FlowSystem; SafeGroundTracker asks it before recording a pose.
     /// </summary>
     public sealed class NoSafeGroundZone : MonoBehaviour
     {
@@ -14,6 +15,9 @@ namespace Kit.Gameplay.Flow
 
         /// <summary>Builder entry point (edit mode).</summary>
         public void Setup(Vector3 boxSize) => size = boxSize;
+
+        void OnEnable() => FlowSystem.Register(this);
+        void OnDisable() => FlowSystem.Unregister(this);
 
         void OnDrawGizmosSelected()
         {
