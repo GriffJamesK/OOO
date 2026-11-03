@@ -16,5 +16,15 @@ MonoBehaviour:
   Reach: 2.6
   SlotSize: {x: 0.16, y: 0.2}
   TileGap: 0.02
-  FeltMaterial: {fileID: 0}
-  TileMaterial: {fileID: 0}
+  FeltMaterial: {fileID: 2100000, guid: f4736619cbea7af499ceaecab2b2293d, type: 2}
+  TileMaterial: {fileID: 2100000, guid: f4736619cbea7af499ceaecab2b2293d, type: 2}
+  GlyphScale: 0.75
+  GlyphProud: 0.004
+  FeltMargin: 0.04
+  FeltDepth: 0.02
+  SlotDepth: 0.03
+  ViewOffset: {x: 0.17, y: -0.14, z: 0.3}
+  ViewTileSize: {x: 0.032, y: 0.04}
+  ViewTileSpacing: 0.04
+  ViewTileYaw: -12
+  ViewSway: 0.004

@@ -12,10 +12,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 32314309923698c4ba24f074c90a91ee, type: 3}
   m_Name: WorldTextConfig
   m_EditorClassIdentifier: Kit.Gameplay::Kit.Gameplay.Signage.WorldTextConfig
-  Font: {fileID: 0}
+  Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
   StyleMaterials:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 2100000, guid: dd05601adf9b0ae45aac1ca2537280f7, type: 2}
+  - {fileID: 2100000, guid: 80111c9d333cdc440a412aa6121c029a, type: 2}
+  - {fileID: 2100000, guid: 5b943fca1418e5b458d011de633670bc, type: 2}
+  - {fileID: 2100000, guid: da3ed911d507524448641d0de5d99b76, type: 2}
   PixelsPerMetre: 600
+  MinFontSize: 16
+  MaxFontSize: 160
+  WorldUnitsPerFontPixel: 0.1
+  CapHeightPerEm: 0.72
+  LineSpacing: 1
