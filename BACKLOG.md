@@ -4,6 +4,10 @@ Pending requests at the top; move finished items to Done with the date (YYYY-MM-
 
 ## Pending
 
+- OOO: `PlayerSourceMovementTests.Stairs_UpAndDown_StayGrounded_AndCameraGlides` is frame-time sensitive. It failed once in a full play-mode run (camera step 0.105 m against the 0.08 limit, right after the heavy Office-scene route tests) and passes alone. Consider measuring camera speed per second instead of per frame.
+- OOO: performance is unmeasured. The Editor was unfocused overnight, so frame timings were meaningless. Profile the atrium (6 shadowed spots, about 40 lights, up to 4 portal cameras) on target hardware. If needed, lower `PortalConfig.ResolutionScale` or `MaxActive`.
+- OOO: concrete has no panel lines. GridChecker only takes the main light, so it would ignore interior lights. A lit, world-space 1.5 x 1 m panel-line shader that works with Forward+ lights would bring brutal_01's board-marking back.
+
 - Optional: add a 2D camera rig variant (orthographic, CinemachinePositionComposer).
 - Optional: add `com.unity.probuilder` for blockout once a prototype needs it (record in DECISIONS.md).
 - Optional: replace `Kit/GridChecker` HLSL with a Shader Graph version if Shader Graph authoring tools become scriptable.

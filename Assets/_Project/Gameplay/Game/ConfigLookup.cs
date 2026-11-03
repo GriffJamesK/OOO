@@ -37,11 +37,15 @@ namespace Kit.Gameplay
         /// </summary>
         public static T Get<T>() where T : ConfigAsset
         {
-            if (registered.TryGetValue(typeof(T), out var found) && found != null) return (T)found;
+            // Registrations come from play mode (GameManager); with domain reload off they outlive it,
+            // so outside play mode they could point at assets a builder has since replaced. Edit mode
+            // therefore always reads the asset on disk.
+            if (Application.isPlaying && registered.TryGetValue(typeof(T), out var found) && found != null) return (T)found;
 #if UNITY_EDITOR
             var asset = UnityEditor.AssetDatabase.LoadAssetAtPath<T>($"Assets/_Project/Config/{typeof(T).Name}.asset");
             if (asset != null) return asset;
 #endif
+            if (registered.TryGetValue(typeof(T), out var registeredAsset) && registeredAsset != null) return (T)registeredAsset;
             if (!defaults.TryGetValue(typeof(T), out var fallback) || fallback == null)
             {
                 fallback = ScriptableObject.CreateInstance<T>();
