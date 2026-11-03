@@ -36,6 +36,7 @@ namespace Kit.Editor
         static partial void BuildLetterboardAssets(); // OfficeBuilder.Letterboard.cs: felt/tile materials, LetterboardConfig
         static partial void BuildPortalAssets();      // OfficeBuilder.Portals.cs: Mat_Portal, PortalConfig.SurfaceMaterial
         static partial void BuildProps();             // OfficeBuilder.Props.cs: every OfficeKit.PropIds prefab
+        static partial void BuildFeelAssets();        // OfficeBuilder.Feel.cs: particle materials, FeelConfig
 
         // Areas, each implemented in OfficeBuilder.Area_<id>.cs. Build under root, in world space.
         static partial void BuildArea_A1(Transform root); // Waiting Room (spawn)
@@ -73,6 +74,7 @@ namespace Kit.Editor
             BuildLetterboardAssets();
             BuildPortalAssets();
             BuildProps();
+            BuildFeelAssets();
             AssetDatabase.SaveAssets();
         }
 
