@@ -103,7 +103,6 @@ namespace Kit.Gameplay.Portals
             viewCamera.allowHDR = true;
             viewCamera.allowMSAA = false;
             viewCamera.allowDynamicResolution = false;
-            viewCamera.stereoTargetEye = StereoTargetEyeMask.None;
 
             var data = viewCamera.GetUniversalAdditionalCameraData();
             data.renderType = CameraRenderType.Base;

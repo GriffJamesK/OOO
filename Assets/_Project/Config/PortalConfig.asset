@@ -16,4 +16,5 @@ MonoBehaviour:
   MaxActive: 4
   NearExtrude: 0.6
   ResolutionScale: 1
-  SurfaceMaterial: {fileID: 0}
+  SurfaceMargin: 0.01
+  SurfaceMaterial: {fileID: 2100000, guid: 03370db24177d324893a01ebced3d712, type: 2}
