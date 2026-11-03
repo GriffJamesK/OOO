@@ -167,3 +167,11 @@ Dated, one line each. Add an entry whenever you choose something the spec or GDD
 - 2026-11-02: Batch-mode acceptance runs (fresh-clone open, CLI tests) use a temporary `git clone`, because the owner's Editor holds this project (owner's choice).
 - 2026-11-02: Moved `SPEC.md` from the repo root to `docs/SPEC.md` to keep the root layout exactly as the spec lists it. The updated spec (with the first-person and greybox section) replaced that copy the same day.
 - 2026-11-02: MCP has a dedicated `manage_camera` screenshot action; CLAUDE.md lists it first, with `ScreenCapture.CaptureScreenshot` via `execute_code` as the fallback.
+
+## Prototype: OOO (GDD approved by owner 2026-11-02)
+
+- 2026-11-02: Direction A, "same number, same place" (numbered thresholds pair; letterboard tiles rewire them), chosen over "the floor plan is true" (too close to Control's shifting rooms, which the brief excludes) and "every floor is the same floor" (works against distinct areas). Reasoning in `docs/GDD.md`, Direction.
+- 2026-11-02: **Deviation from the kit's definition of done (brief: no fail state):** no game over; an ending (crossing the 000 threshold) replaces it. HUD stays hidden all game.
+- 2026-11-02: **Deviation:** falling respawns at the last solid ground stood on, not at `PlayerSpawn`.
+- 2026-11-02: **Kit extension (owner-approved with the GDD):** an office mood material set (concrete, wood veneer, oxblood carpet, shell-chair orange, cubicle beige, plant green, CRT green emissive, brass) alongside the greybox role table. Thresholds get no role colour, so the mechanic isn't telegraphed.
+- 2026-11-02: GDD exceeds the template's two pages to hold the knowledge graph and six areas.
