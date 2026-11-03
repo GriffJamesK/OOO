@@ -195,10 +195,12 @@ How `docs/GDD.md` becomes code. Read `CLAUDE.md` first. Every interface named he
 - `A4_Entry` x 20, z -3 .. 3, y 4 .. 7 (A2 L1 east gallery).
 - `A5_L0` x -20, z -26 .. -22, y 0 .. 3; `A5_L2` x -20, z -26 .. -22, y 8 .. 11.
 - `A6_Bridge` x 20, z -2 .. 2, y 24 .. 27. The A2 boardroom pod is a cantilevered slab at y 24, x 0 .. 20, z -6 .. 6, reachable **only** by the launch.
-- `Launch_Exit` (threshold 6) on the A2 west wall at x -20 (front +X, tilted 30 deg up), centre y 29, z 0, opening 2.5 x 2.5. Exit speed 26 m/s at 30 deg up, under gravity -30, lands about 26 m out at y 24 (x about +6), on the pod.
+- `Launch_Exit` (threshold 6) on the A2 west wall at x -20 (front +X, tilted 30 deg up), centre y 29, z 0, opening 3 x 3 (the same size as the hatch). Exit speed 26 m/s at 30 deg up, under gravity -30, lands about 26 m out at y 24 (x about +6), on the pod.
 - `Launch_Hatch` (threshold 6) is the A5 floor hatch at y -4 + 0.01 (front +Y), x -32, z -26, 3 x 3. It sits under the A5 void (x -36..-28, z -30..-22), open from y 24 down.
 
 ## Threshold number plan (authoritative)
+
+**Both thresholds of a pair have the same opening size and the same sill height above their floor.** The map is rigid: an off-centre entry comes out at the mirrored offset, so a smaller partner would put the player inside a wall. Sizes: 104 is 1.2 x 2.4. 1, 312 and 000 (and the cloakroom) are 1 x 2.1 (`OfficeLayout.Door`). 37 is 2.4 x 2.6. 412 is a 2 x 1.2 wall hatch with its sill 0.9 m above the floor. 6 is 3 x 3.
 
 A threshold number pairs anywhere in the world, so **only the numbers below may appear on threshold plates**. The ranges hold an area's own unpaired door numbers: each must be unique, in range, and must not appear on any other threshold. Text that isn't on a threshold (memos, clocks, signs, letterboard menus) may use any number.
 

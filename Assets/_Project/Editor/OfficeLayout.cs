@@ -56,10 +56,10 @@ namespace Kit.Editor
         /// <summary>The atrium's cantilevered boardroom pod top surface (reachable only by the launch).</summary>
         public static readonly Bounds BoardroomPod = Box(new Vector3(0f, 23.6f, -6f), new Vector3(20f, 24f, 6f));
 
-        /// <summary>Launch exit (threshold 6) on the atrium west wall: centre, facing +X tilted 30 deg up, 2.5 x 2.5 m.</summary>
+        /// <summary>Launch exit (threshold 6) on the atrium west wall: centre, facing +X tilted 30 deg up, 3 x 3 m (same size as the hatch: pairs must match).</summary>
         public static readonly Vector3 LaunchExitCentre = new Vector3(-20f, 29f, 0f);
         public static readonly Quaternion LaunchExitRotation = Quaternion.LookRotation(new Vector3(Mathf.Cos(30f * Mathf.Deg2Rad), Mathf.Sin(30f * Mathf.Deg2Rad), 0f), Vector3.up);
-        public static readonly Vector2 LaunchOpening = new Vector2(2.5f, 2.5f);
+        public static readonly Vector2 LaunchOpening = new Vector2(3f, 3f);
 
         /// <summary>Launch hatch (threshold 6) on the A5 void floor: centre, facing +Y, 3 x 3 m.</summary>
         public static readonly Vector3 LaunchHatchCentre = new Vector3(-32f, -4f + 0.01f, -26f);
