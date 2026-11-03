@@ -175,3 +175,4 @@ Dated, one line each. Add an entry whenever you choose something the spec or GDD
 - 2026-11-02: **Deviation:** falling respawns at the last solid ground stood on, not at `PlayerSpawn`.
 - 2026-11-02: **Kit extension (owner-approved with the GDD):** an office mood material set (concrete, wood veneer, oxblood carpet, shell-chair orange, cubicle beige, plant green, CRT green emissive, brass) alongside the greybox role table. Thresholds get no role colour, so the mechanic isn't telegraphed.
 - 2026-11-02: GDD exceeds the template's two pages to hold the knowledge graph and six areas.
+- 2026-11-02: Owner, before signing off: run all remaining phases unattended with permission for everything development-related. Assets are built in-engine by editor builders (no CC0 downloads). Push to `origin/main` after each phase.
