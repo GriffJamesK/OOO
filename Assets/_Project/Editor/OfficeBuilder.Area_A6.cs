@@ -177,7 +177,7 @@ namespace Kit.Editor
 
             OKit.Box(t, "A6_Vest_BrassEdgeN", OMat.Brass, new Vector3(20.45f, A6_Floor, 1.9f), new Vector3(26f, A6_Floor + 0.006f, 1.95f), false);
             OKit.Box(t, "A6_Vest_BrassEdgeS", OMat.Brass, new Vector3(20.45f, A6_Floor, -1.95f), new Vector3(26f, A6_Floor + 0.006f, -1.9f), false);
-            OKit.CeilingLight(t, "A6_Vest_Light", new Vector3(23.2f, A6_VestCeil - 0.03f, 0f), new Vector2(0.6f, 0.6f), A6_Warm, 4f, 5f, false, false, OMat.LightWarm);
+            OKit.CeilingLight(t, "A6_Vest_Light", new Vector3(23.2f, A6_VestCeil - 0.03f, 0f), new Vector2(0.6f, 0.6f), A6_Warm, 2.5f, 5f, false, false, OMat.LightWarm);
 
             OKit.Prop(t, OProp.CoatRack, new Vector3(25.4f, A6_Floor, 1.55f));
             OKit.Prop(t, OProp.TicketDispenser, new Vector3(25.5f, A6_Floor, -1.6f), -90f);
@@ -198,7 +198,7 @@ namespace Kit.Editor
             var t = new GameObject("A6_Lounge").transform;
             t.SetParent(root, false);
 
-            OKit.CeilingLight(t, "A6_Lounge_Panel", new Vector3(34f, A6_Ceil - 0.03f, -8.2f), new Vector2(1.2f, 0.6f), A6_Cool, 12f, 7f, false, true);
+            OKit.CeilingLight(t, "A6_Lounge_Panel", new Vector3(34f, A6_Ceil - 0.03f, -8.2f), new Vector2(1.2f, 0.6f), A6_Cool, 6f, 7f, false, true);
 
             OKit.Prop(t, OProp.LeatherSofa, new Vector3(34f, A6_Floor, -9.45f));
             OKit.Prop(t, OProp.SideTable, new Vector3(35.6f, A6_Floor, -9.5f));
@@ -252,7 +252,7 @@ namespace Kit.Editor
             // Meeting Room C: x 33..41, z 10..16, glass 3 m high under a dark timber roof.
             A6_GlassRoom(t, "A6_RoomC", new Vector3(33f, 0f, 10f), new Vector3(41f, 0f, 16f), 'E', 14.2f);
             OKit.Box(t, "A6_RoomC_Floor", OMat.ConcreteLight, new Vector3(33.05f, A6_Floor, 10.05f), new Vector3(40.95f, A6_Floor + 0.02f, 15.95f));
-            OKit.CeilingLight(t, "A6_RoomC_Light", new Vector3(37f, 26.97f, 13f), new Vector2(1.4f, 0.6f), A6_Cool, 10f, 7f, false, true);
+            OKit.CeilingLight(t, "A6_RoomC_Light", new Vector3(37f, 26.97f, 13f), new Vector2(1.4f, 0.6f), A6_Cool, 5f, 7f, false, true);
             OKit.Prop(t, OProp.Desk, new Vector3(37f, A6_Floor, 13.6f), 180f);
             OKit.Prop(t, OProp.SwivelChair, new Vector3(37f, A6_Floor, 14.5f), 180f);
             OKit.Prop(t, OProp.DeskLamp, new Vector3(36.4f, A6_Floor + 0.74f, 13.7f), 160f);
@@ -373,7 +373,7 @@ namespace Kit.Editor
             var t = new GameObject("A6_Corridor").transform;
             t.SetParent(root, false);
 
-            OKit.CeilingLight(t, "A6_Corridor_Panel", new Vector3(31.5f, A6_Ceil - 0.03f, -12f), new Vector2(1.2f, 0.6f), A6_Cool, 5f, 6f, true);
+            OKit.CeilingLight(t, "A6_Corridor_Panel", new Vector3(31.5f, A6_Ceil - 0.03f, -12f), new Vector2(1.2f, 0.6f), A6_Cool, 3f, 6f, true);
             OKit.Prop(t, OProp.WaterCooler, new Vector3(26.5f, A6_Floor, -12.9f), 90f);
             OKit.Prop(t, OProp.PottedPlant, new Vector3(26.5f, A6_Floor, -11.0f));
 
@@ -410,7 +410,7 @@ namespace Kit.Editor
             OKit.Box(t, "A6_Tag_Cord", OMat.MetalDark, new Vector3(48.858f, 25.12f, -11.345f), new Vector3(48.862f, 25.3f, -11.335f), false);
             OKit.Sign(t, "OUT OF\nOFFICE", new Vector3(48.85f, 25.02f, -11.34f), west, 0.022f, WorldTextStyle.DarkOnLight, TextAnchor.MiddleCenter,
                 OMat.Paper, new Vector2(0.13f, 0.17f));
-            OKit.SpotLight(t, "A6_Door600_Spot", new Vector3(47.6f, A6_Ceil - 0.1f, -12f), OKit.Facing(new Vector3(1.4f, -2.6f, 0f)), A6_Warm, 6f, 6f, 42f, true);
+            OKit.SpotLight(t, "A6_Door600_Spot", new Vector3(47.6f, A6_Ceil - 0.1f, -12f), OKit.Facing(new Vector3(1.4f, -2.6f, 0f)), A6_Warm, 3.5f, 6f, 42f, true);
             OKit.Prop(t, OProp.PottedPlant, new Vector3(48.4f, A6_Floor, -13.5f));
         }
 
@@ -454,7 +454,7 @@ namespace Kit.Editor
             var t = new GameObject("A6_Spine").transform;
             t.SetParent(root, false);
             for (int i = 0; i < 3; i++)
-                OKit.CeilingLight(t, $"A6_Spine_Light_{i}", new Vector3(40.5f + i * 3.4f, A6_Ceil - 0.03f, 0f), new Vector2(0.6f, 0.6f), A6_Warm, 6f, 5f,
+                OKit.CeilingLight(t, $"A6_Spine_Light_{i}", new Vector3(40.5f + i * 3.4f, A6_Ceil - 0.03f, 0f), new Vector2(0.6f, 0.6f), A6_Warm, 3f, 5f,
                     false, false, OMat.LightWarm);
             OKit.Sign(t, "BOARDROOM", new Vector3(38.3f, 27.35f, 0f), OKit.Facing(Vector3.left), 0.1f, WorldTextStyle.LightOnDark, TextAnchor.MiddleCenter,
                 OMat.MetalDark, new Vector2(1.3f, 0.26f));
@@ -492,7 +492,7 @@ namespace Kit.Editor
 
             OKit.FogZone(t, "A6_BoardroomView", new Bounds(new Vector3(54.6f, 26f, 0f), new Vector3(10f, 4f, 17.6f)),
                 new Color(0.604f, 0.639f, 0.659f), 30f, 240f, 2.5f, 20f);
-            OKit.CeilingLight(t, "A6_Boardroom_Panel", new Vector3(53.5f, A6_Ceil - 0.03f, 0f), new Vector2(1.2f, 0.6f), A6_Warm, 4f, 6f, false, false, OMat.LightWarm);
+            OKit.CeilingLight(t, "A6_Boardroom_Panel", new Vector3(53.5f, A6_Ceil - 0.03f, 0f), new Vector2(1.2f, 0.6f), A6_Warm, 2.5f, 6f, false, false, OMat.LightWarm);
 
             // Table along x 51..57; chairs either side, the window end left empty.
             OKit.Prop(t, OProp.BoardroomTable, new Vector3(54f, A6_Floor, 0f));
