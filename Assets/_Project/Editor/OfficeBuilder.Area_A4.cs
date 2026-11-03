@@ -14,16 +14,18 @@ namespace Kit.Editor
     /// through the fog onto a bright patch of floor, a hanging garden on the east wall and a high
     /// south gallery half lost in the haze.
     ///
-    /// Movement: a stepped seating terrace on the north side has 60 deg planter-faced risers
-    /// (surf faces). In its centre aisle stands the "great planter", a 60 deg prism whose lip is
-    /// 6.4 m up. Hitting it fast (a slide/hop chain down the clear aisle from the serving line)
-    /// carries the player up the face and over a 2.3 m gap onto the north balcony 8 m up, which
-    /// holds brass door 312 (pairs with A3's Records Room). A sprint-jump alone runs out of speed
-    /// below the balcony edge. The serving line on the south side has the menu letterboard (the
-    /// K4 "S0UP / C0FFEE" hint) and the kitchen roller shutter, brass 412 (slide under; pairs
-    /// with A3's service hatch).
+    /// Movement: a stepped seating terrace on the north side (60 deg planter-faced risers, the
+    /// great planter prism in its centre aisle as decoration) tops out at y 8.8. An aisle stair at
+    /// its east end climbs beside a floor-to-roof concrete blade wall to a landing at 8.8. The
+    /// north balcony (deck y 10.7, 1.9 m higher) starts 5.5 m beyond the landing's end, so no
+    /// jump reaches it (apex +1.5). The line: sprint up the stair, jump off the landing's end
+    /// angled toward the blade so the wall run catches near the top of the jump, and run the
+    /// blade's west face onto the deck (or wall-jump from it). Door 312 on the balcony is brass
+    /// and pairs with A3's Records Room. The serving line on the south side has the menu
+    /// letterboard (the K4 "S0UP / C0FFEE" hint) and the kitchen roller shutter, brass 412
+    /// (slide under; pairs with A3's service hatch).
     ///
-    /// All numbers a level designer might retune for the surf line are the A4_ constants below.
+    /// All numbers a level designer might retune for the balcony line are the A4_ constants below.
     /// </summary>
     public static partial class OfficeBuilder
     {
@@ -37,23 +39,30 @@ namespace Kit.Editor
         const float A4_ZMin = -24.6f;        // inner face of our south wall
         const float A4_ZMax = 24.6f;         // inner face of our north wall
 
-        // North balcony (door 312).
-        const float A4_BalconyY = 12f;       // deck top, 8 m above the floor
-        const float A4_BalconyEdgeZ = 18f;   // front edge of the deck
+        // North balcony (door 312). Deck 1.9 m above the landing and 5.5 m beyond it: one jump
+        // (apex +1.5, plus the controller's 0.3 m step offset) never reaches it.
+        const float A4_BalconyY = 10.7f;     // deck top
+        const float A4_BalconyEdgeZ = 19f;   // front edge of the deck
         const float A4_BalconyBackZ = 22.6f; // centre plane of the wall holding door 312
         const float A4_BalconyX0 = 32f;      // west end of the balcony
-        const float A4_LandingGapX0 = 42f;   // railing left out here, over the great planter
-        const float A4_LandingGapX1 = 50f;
-        const float A4_Door312X = 58f;
+        const float A4_LandingGapX0 = 58f;   // railing left out from here to the blade (where the old stair arrived)
+        const float A4_Door312X = 54f;
+
+        // The blade wall and aisle stair (the wall-run line), at the east end of the terraces.
+        const float A4_BladeX = 64.4f;       // west face of the blade (it is 0.4 m thick)
+        const float A4_BladeZ0 = 3.5f;       // south end of the blade (it runs north to the north wall)
+        const float A4_StairX0 = 62f;        // aisle stair and landing, x 62..64.4, against the blade
+        const int A4_StairSteps = 16;
+        const float A4_StairRise = 0.3f, A4_StairTread = 0.4f;
         const float A4_ThresholdWall = 0.2f; // walls holding thresholds are thinner than the frame depth, so plates stand proud
 
-        // Great planter (the launch face) in the terrace's centre aisle.
+        // Great planter (decoration) in the terrace's centre aisle.
         const float A4_SlotX0 = 43f, A4_SlotX1 = 49f;
-        const float A4_PlanterFootZ = 12f;   // south foot of the 60 deg face, on the floor
+        const float A4_PlanterFootZ = 9.5f;  // south foot of the 60 deg face, on the floor
         const float A4_PlanterLipY = 10.4f;  // sharp lip (no flat top to stand on)
 
         // Seating terraces either side of the aisle: risers are 60 deg planter faces.
-        const float A4_TerraceZ0 = 6f, A4_TerraceTread = 2.5f, A4_TerraceRise = 1.2f;
+        const float A4_TerraceZ0 = 3.5f, A4_TerraceTread = 2.5f, A4_TerraceRise = 1.2f;
         const int A4_TerraceTiers = 4;
         const float A4_TerraceX0 = 30f, A4_TerraceX1 = 62f;
 
@@ -164,13 +173,13 @@ namespace Kit.Editor
 
             // Key "sun" spot just under the roof, aimed along the sun at the patch (shadow light 1 of 4).
             OfficeKit.SpotLight(g, "SunPatchKey", A4_SunPatch - sun * (length - 0.6f), Quaternion.LookRotation(sun, Vector3.up),
-                A4_Cool, 140f, length + 6f, 32f, true);
+                A4_Cool, 70f, length + 6f, 32f, true);
         }
 
         // ------------------------------------------------------------------ terraces and the great planter
 
         /// <summary>
-        /// Two seating terrace blocks (x 30..43 and 49..62, z 6..16) stepping up north in four
+        /// Two seating terrace blocks (x 30..43 and 49..62, z 3.5..13.5) stepping up north in four
         /// 1.2 m tiers whose risers are 60 deg planter faces, and the great planter prism in the
         /// 6 m aisle between them. Each block is one extruded mesh so faces meet cleanly.
         /// </summary>
@@ -181,7 +190,7 @@ namespace Kit.Editor
             A4_ProfileSolid(g, "A4_TerraceWest", M.Concrete, A4_TerraceX0, A4_SlotX0, A4_Floor, profile);
             A4_ProfileSolid(g, "A4_TerraceEast", M.Concrete, A4_SlotX1, A4_TerraceX1, A4_Floor, profile);
 
-            // The great planter: a sharp 60 deg prism, foot at z 12, lip 6.4 m up, north face back down under the balcony.
+            // The great planter: a sharp 60 deg prism, decoration: foot at z 9.5, lip 6.4 m up.
             float lipZ = A4_PlanterLipZ;
             float northFootZ = lipZ + (A4_PlanterLipY - A4_Floor) / A4_Tan60;
             A4_ProfileSolid(g, "A4_GreatPlanter", M.ConcreteLight, A4_SlotX0, A4_SlotX1, A4_Floor,
@@ -217,7 +226,7 @@ namespace Kit.Editor
             OfficeKit.Prop(g, P.PottedPlant, new Vector3(A4_SlotX0 + 0.4f, A4_Floor, A4_PlanterFootZ - 0.5f), 20f);
             OfficeKit.Prop(g, P.PottedPlant, new Vector3(A4_SlotX1 - 0.4f, A4_Floor, A4_PlanterFootZ - 0.5f), 200f);
             OfficeKit.Sign(g, "PLANTING SCHEME, PHASE II\nApproved by T. Vane,\nDirector of Continuity\nMarch 1977",
-                new Vector3(A4_SlotX0 + 0.012f, A4_Floor + 0.75f, 8.4f), OfficeKit.Facing(Vector3.right), 0.03f,
+                new Vector3(A4_SlotX0 + 0.012f, A4_Floor + 0.6f, 5.1f), OfficeKit.Facing(Vector3.right), 0.03f,
                 WorldTextStyle.DarkOnLight, TextAnchor.MiddleCenter, M.Brass, new Vector2(0.7f, 0.3f));
         }
 
@@ -240,19 +249,32 @@ namespace Kit.Editor
         // ------------------------------------------------------------------ balcony and door 312
 
         /// <summary>
-        /// The north balcony at y 12 (x 32..71.6, deck z 18..22.6), its railing (left out over
-        /// the great planter, where the old stair arrived), door 312 in the back wall with a
-        /// closet behind it, and a little dressing for whoever gets up there.
+        /// The north balcony (deck y 10.7, x 32..64.4, z 19..22.5) and its access line: an aisle
+        /// stair at the terraces' east end climbing beside a floor-to-roof blade wall to a landing
+        /// at y 8.8 that ends 5.5 m short of the deck. Door 312 sits in the back wall with a closet
+        /// behind it. The railing is left out at the east end, where the old stair used to land.
         /// </summary>
         static void A4_Balcony(Transform root, System.Random rng)
         {
             var g = A4_Group(root, "A4_Balcony");
             float y = A4_BalconyY;
+            float landingY = A4_Floor + A4_StairSteps * A4_StairRise; // 8.8, level with the top terrace tread
+            float landingEnd = A4_TerraceBackZ;                        // 13.5
 
-            OfficeKit.Slab(g, "Deck", M.Concrete, new Vector3(A4_BalconyX0, 0f, A4_BalconyEdgeZ), new Vector3(A4_XMax, 0f, A4_ZMax), y, 0.4f);
-            OfficeKit.Wall(g, "BackWall", M.Concrete, new Vector3(A4_BalconyX0, 0f, A4_BalconyBackZ), new Vector3(A4_XMax, 0f, A4_BalconyBackZ),
+            // The blade: one solid concrete wall, floor to roof, from the terrace front to the north
+            // wall. Its west face is the wall-run surface; it also closes the balcony's east end.
+            OfficeKit.Box(g, "Blade", M.Concrete, new Vector3(A4_BladeX, A4_Floor, A4_BladeZ0), new Vector3(A4_BladeX + 0.4f, A4_Roof, A4_ZMax));
+
+            // Aisle stair and landing between the east terrace block and the blade.
+            float stairW = A4_BladeX - A4_StairX0;
+            var top = OfficeKit.Stairs(g, "AisleStair", M.Concrete, new Vector3(A4_StairX0 + stairW * 0.5f, A4_Floor, A4_BladeZ0), Vector3.forward, stairW,
+                A4_StairSteps, A4_StairRise, A4_StairTread);
+            OfficeKit.Box(g, "Landing", M.Concrete, new Vector3(A4_StairX0, A4_Floor, top.z), new Vector3(A4_BladeX, landingY, landingEnd));
+
+            OfficeKit.Slab(g, "Deck", M.Concrete, new Vector3(A4_BalconyX0, 0f, A4_BalconyEdgeZ), new Vector3(A4_BladeX, 0f, A4_ZMax), y, 0.4f);
+            OfficeKit.Wall(g, "BackWall", M.Concrete, new Vector3(A4_BalconyX0, 0f, A4_BalconyBackZ), new Vector3(A4_BladeX, 0f, A4_BalconyBackZ),
                 y, A4_Roof - y, A4_ThresholdWall, OfficeKit.Opening.Door(A4_Door312X - OfficeLayout.Door.x * 0.5f - A4_BalconyX0));
-            // Seal the service void behind the back wall at its west end.
+            // Seal the service void behind the back wall at its west end (the blade closes the east end).
             float wallBack = A4_BalconyBackZ + A4_ThresholdWall * 0.5f;
             OfficeKit.Box(g, "VoidEnd_West", M.Concrete, new Vector3(A4_BalconyX0, y, A4_BalconyBackZ - A4_ThresholdWall * 0.5f), new Vector3(A4_BalconyX0 + 0.2f, A4_Roof, A4_ZMax));
 
@@ -269,20 +291,19 @@ namespace Kit.Editor
             OfficeKit.Box(g, "Closet_MopBucket", M.MetalDark, new Vector3(cx0 + 0.35f, y, A4_ZMax - 0.6f), new Vector3(cx0 + 0.7f, y + 0.35f, A4_ZMax - 0.25f), false);
             OfficeKit.PointLight(g, "Closet_Light", new Vector3(A4_Door312X, ceil - 0.2f, A4_ZMax - 0.9f), new Color(0.9f, 0.85f, 0.75f), 0.8f, 3.5f);
 
-            // Railing: west end and front edge, left out over the great planter where the stair used to land.
+            // Railing: west end and front edge, left out from x 58 to the blade, where the stair used to land.
             float rz = A4_BalconyEdgeZ + 0.05f, front = A4_BalconyBackZ - A4_ThresholdWall * 0.5f - 0.05f;
             OfficeKit.Railing(g, "Railing_West", new Vector3(A4_BalconyX0 + 0.05f, y, rz), new Vector3(A4_BalconyX0 + 0.05f, y, front));
-            OfficeKit.Railing(g, "Railing_FrontW", new Vector3(A4_BalconyX0 + 0.05f, y, rz), new Vector3(A4_LandingGapX0, y, rz));
-            OfficeKit.Railing(g, "Railing_FrontE", new Vector3(A4_LandingGapX1, y, rz), new Vector3(A4_XMax - 0.05f, y, rz));
+            OfficeKit.Railing(g, "Railing_Front", new Vector3(A4_BalconyX0 + 0.05f, y, rz), new Vector3(A4_LandingGapX0, y, rz));
 
-            // Slim columns under the deck edge (none near the planter).
-            foreach (float x in new[] { 35f, 53.5f, 62.5f, 70f })
+            // Slim columns under the deck edge.
+            foreach (float x in new[] { 35f, 44f, 53f, 61f })
                 OfficeKit.Box(g, $"Column_{x:0}", M.Concrete, new Vector3(x - 0.3f, A4_Floor, A4_BalconyEdgeZ + 0.1f), new Vector3(x + 0.3f, y - 0.4f, A4_BalconyEdgeZ + 0.7f));
 
-            // Dressing: a lone table by the door, a philodendron, a bin.
-            OfficeKit.Prop(g, P.RoundTable, new Vector3(65.5f, y, 20.2f), 15f);
-            OfficeKit.Prop(g, P.ShellChair, new Vector3(64.6f, y, 20.4f), 100f);
-            OfficeKit.Prop(g, P.ShellChair, new Vector3(66.6f, y, 19.6f), 290f + A4_Range(rng, -10f, 10f));
+            // Dressing: a lone table at the quiet west end, a philodendron and a bin by the door.
+            OfficeKit.Prop(g, P.RoundTable, new Vector3(38f, y, 20.8f), 15f);
+            OfficeKit.Prop(g, P.ShellChair, new Vector3(37.1f, y, 21f), 100f);
+            OfficeKit.Prop(g, P.ShellChair, new Vector3(39.1f, y, 20.2f), 290f + A4_Range(rng, -10f, 10f));
             OfficeKit.Prop(g, P.PottedPlant, new Vector3(A4_Door312X + 1.4f, y, front - 0.4f), 40f);
             OfficeKit.Prop(g, P.Bin, new Vector3(A4_Door312X - 1.3f, y, front - 0.3f), 0f);
 
@@ -290,13 +311,13 @@ namespace Kit.Editor
             OfficeKit.Box(g, "DoorLamp", M.LightWarm, new Vector3(A4_Door312X - 0.15f, y + 2.55f, front - 0.08f), new Vector3(A4_Door312X + 0.15f, y + 2.7f, front), false);
             OfficeKit.PointLight(g, "DoorLamp_Light", new Vector3(A4_Door312X, y + 2.4f, front - 0.5f), A4_Warm, 2.5f, 6f);
 
-            // Text: the Facilities memo (by the stair gap), the overflow plaque, the birthday banner.
-            OfficeKit.Sign(g, "FACILITIES NOTICE\n\nThe balcony stair has been taken out\nto make room for the new planting scheme.\nThe balcony is closed until further notice.\n\n14 March 1977",
-                new Vector3(46f, y + 1.55f, front - 0.01f), OfficeKit.Facing(Vector3.back), 0.03f,
+            // Text: the Facilities memo (by the railing gap), the overflow plaque, the birthday banner.
+            OfficeKit.Sign(g, "FACILITIES NOTICE\n\nThe balcony stair has been taken out.\nThe balcony is closed until further notice\nand the railing will be made good.\n\n14 March 1977",
+                new Vector3(60.5f, y + 1.55f, front - 0.01f), OfficeKit.Facing(Vector3.back), 0.03f,
                 WorldTextStyle.DarkOnLight, TextAnchor.MiddleCenter, M.Paper, new Vector2(0.95f, 0.55f));
             OfficeKit.Sign(g, "RECORDS\nOVERFLOW", new Vector3(A4_Door312X + 0.95f, y + 1.6f, front - 0.01f), OfficeKit.Facing(Vector3.back), 0.045f,
                 WorldTextStyle.Brass, TextAnchor.MiddleCenter, M.MetalDark, new Vector2(0.42f, 0.22f));
-            OfficeKit.Sign(g, "HAPPY BIRTHDAY AGNES", new Vector3(58f, y - 0.85f, A4_BalconyEdgeZ - 0.03f), OfficeKit.Facing(Vector3.back), 0.36f,
+            OfficeKit.Sign(g, "HAPPY BIRTHDAY AGNES", new Vector3(44f, y - 0.85f, A4_BalconyEdgeZ - 0.03f), OfficeKit.Facing(Vector3.back), 0.36f,
                 WorldTextStyle.DarkOnLight, TextAnchor.MiddleCenter, M.Paper, new Vector2(8.4f, 0.66f));
         }
 
@@ -414,14 +435,14 @@ namespace Kit.Editor
 
         /// <summary>
         /// About 34 round tables in two blocks either side of the clear 10 m aisle that runs from
-        /// the menu board north to the great planter (the run-up). Four shell chairs each, some
+        /// the menu board north to the great planter. Four shell chairs each, some
         /// pushed back, turned or missing; cups, table numbers, one birthday card in the sun patch.
         /// </summary>
         static void A4_Tables(Transform root, System.Random rng)
         {
             var g = A4_Group(root, "A4_Tables");
             float tableTop = A4_Floor + P.SizeOf(P.RoundTable).y;
-            float[] rows = { -16.5f, -12f, -7.5f, -3f, 1.5f };
+            float[] rows = { -17f, -12.5f, -8f, -3.5f, 1f };
             float[] west = { 26.5f, 31f, 35.5f, 40f };
             float[] east = { 52.5f, 57f, 61.5f, 66f };
             var spots = new List<Vector3>();
@@ -577,7 +598,7 @@ namespace Kit.Editor
             OfficeKit.Prop(g, P.CoatRack, new Vector3(A4_XMin + 0.5f, A4_Floor, 5.2f), 0f);
 
             // Under the balcony: stacked chairs, the coffee trolley, bins.
-            foreach (float x in new[] { 64.2f, 65f, 67.6f })
+            foreach (float x in new[] { 66.4f, 67.2f, 69.8f })
             {
                 int n = 4 + rng.Next(4);
                 for (int k = 0; k < n; k++)
@@ -590,7 +611,7 @@ namespace Kit.Editor
 
         // ------------------------------------------------------------------ lights
 
-        /// <summary>Dim warm pendants over a few tables (away from the sun patch) and a low cool graze on the great planter so the line reads.</summary>
+        /// <summary>Dim warm pendants over a few tables (away from the sun patch) and a low cool graze on the blade wall so the balcony line reads.</summary>
         static void A4_Lights(Transform root)
         {
             var g = A4_Group(root, "A4_Lights");
@@ -602,8 +623,8 @@ namespace Kit.Editor
             for (int i = 0; i < pendants.Length; i++)
                 A4_Pendant(g, $"Pendant_{i}", new Vector3(pendants[i].x, 8.6f, pendants[i].z));
 
-            OfficeKit.SpotLight(g, "PlanterGraze", new Vector3((A4_SlotX0 + A4_SlotX1) * 0.5f, A4_Roof - 1.4f, 7f),
-                Quaternion.LookRotation(new Vector3(0f, -0.75f, 0.66f), Vector3.up), new Color(0.7f, 0.78f, 0.9f), 9f, 18f, 40f, false);
+            OfficeKit.SpotLight(g, "BladeGraze", new Vector3(A4_BladeX - 3.5f, A4_Roof - 1f, 11f),
+                Quaternion.LookRotation(new Vector3(0.45f, -0.7f, 0.55f), Vector3.up), new Color(0.7f, 0.78f, 0.9f), 9f, 18f, 45f, false);
         }
 
         /// <summary>A cafeteria pendant: a long cord from the roof, a dark shade with a warm glowing underside, and a dim point light.</summary>
