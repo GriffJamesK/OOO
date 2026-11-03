@@ -33,6 +33,7 @@ namespace Kit.Editor
             A7_Ground(root);
             A7_Door(root);
             A7_GroundNumerals(root);
+            A7_Stele(root);
             A7_Building(root);
             A7_Silhouettes(root);
             A7_SunDisc(root);
@@ -100,7 +101,7 @@ namespace Kit.Editor
         }
 
         // Ground numerals "000": glyph size and placement (world metres). The glyph's "up" is +X.
-        const float A7_GlyphCentreX = 106.8f;  // x 104.6..109: A4's roof edge (y 18 at x 72) hides the ground nearer than about x 103.5 from the window
+        const float A7_GlyphCentreX = 105.8f;  // x 103.6..108: A4's roof edge (y 18 at x 72) hides the ground nearer than about x 103.5 from the window; the stele starts at x 108.5
         const float A7_GlyphLength = 4.4f;     // along X (the glyph's height), long to offset foreshortening from 25 m up
         const float A7_GlyphWidth = 2.3f;      // along Z
         const float A7_GlyphStroke = 0.55f;
@@ -121,6 +122,37 @@ namespace Kit.Editor
             t.SetParent(root, false);
             for (int g = -1; g <= 1; g++)
                 A7_ZeroGlyph(t, $"A7_Zero_{g + 1}", new Vector3(A7_GlyphCentreX, 0f, g * A7_GlyphPitch));
+        }
+
+        // The stele behind the door (west of it, between the door and the building).
+        static readonly Vector3 A7_SteleMin = new Vector3(108.5f, 0f, -1.6f);
+        static readonly Vector3 A7_SteleMax = new Vector3(109.3f, 7.5f, 1.6f);
+
+        /// <summary>
+        /// A tall dark concrete stele standing just behind the door (its west side, so it never
+        /// meets a player arriving out of the door's front moving +X). Its west face, toward the
+        /// building, carries "000" in big brass digits stacked top to bottom (one Sign each, so the
+        /// spacing doesn't depend on font line height), lit by a warm shadowless spot from the west.
+        /// Seen from the boardroom window it stands clear above the A4 roof line: the clue at a glance.
+        /// </summary>
+        static void A7_Stele(Transform root)
+        {
+            var t = new GameObject("A7_Stele").transform;
+            t.SetParent(root, false);
+            OKit.Box(t, "A7_Stele_Body", OMat.ConcreteDark, A7_SteleMin, A7_SteleMax);
+
+            const float digit = 2f, gap = 0.3f;
+            float margin = (A7_SteleMax.y - A7_SteleMin.y - 3f * digit - 2f * gap) * 0.5f;
+            var west = OKit.Facing(Vector3.left);
+            for (int i = 0; i < 3; i++)
+            {
+                float y = A7_SteleMin.y + margin + digit * 0.5f + i * (digit + gap);
+                OKit.Sign(t, "0", new Vector3(A7_SteleMin.x - 0.015f, y, 0f), west, digit, WorldTextStyle.Brass);
+            }
+
+            var spotPos = new Vector3(104f, 6f, 0f);
+            var aim = new Vector3(A7_SteleMin.x, (A7_SteleMin.y + A7_SteleMax.y) * 0.5f, 0f) - spotPos;
+            OKit.SpotLight(t, "A7_Stele_Spot", spotPos, OKit.Facing(aim), A7_Warm, 6f, 11f, 72f, false);
         }
 
         /// <summary>

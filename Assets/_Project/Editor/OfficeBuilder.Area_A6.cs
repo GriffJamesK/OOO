@@ -480,11 +480,14 @@ namespace Kit.Editor
             var t = new GameObject("A6_Boardroom").transform;
             t.SetParent(root, false);
 
-            // Window: one solid glass plane, steel mullions every 3 m, a low dark sill strip.
+            // Window: one solid glass plane, a low dark sill strip, and steel mullions every 3 m set
+            // off centre (z ±1.5, ±4.5, ±7.5, plus the ends at ±9), so the centre line from the
+            // window to the door 000 at z 0 is clear glass.
             OKit.Box(t, "A6_Window_Glass", OMat.Glass, new Vector3(59.8f, A6_Floor, -9f), new Vector3(59.9f, A6_Ceil, 9f));
-            for (int i = 0; i <= 6; i++)
+            float[] mullionZ = { -9f, -7.5f, -4.5f, -1.5f, 1.5f, 4.5f, 7.5f, 9f };
+            for (int i = 0; i < mullionZ.Length; i++)
             {
-                float z = -9f + i * 3f;
+                float z = mullionZ[i];
                 OKit.Box(t, $"A6_Window_Mullion_{i}", OMat.MetalDark, new Vector3(59.72f, A6_Floor, z - 0.05f), new Vector3(59.98f, A6_Ceil, z + 0.05f));
             }
             OKit.Box(t, "A6_Window_Sill", OMat.MetalDark, new Vector3(59.7f, A6_Floor, -9f), new Vector3(59.98f, A6_Floor + 0.06f, 9f));
