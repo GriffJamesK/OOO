@@ -32,10 +32,10 @@ MonoBehaviour:
     m_Value: 1
   start:
     m_OverrideState: 1
-    m_Value: 10
+    m_Value: 4
   end:
     m_OverrideState: 1
-    m_Value: 170
+    m_Value: 110
   color:
     m_OverrideState: 1
     m_Value: {r: 0.788, g: 0.804, b: 0.816, a: 1}
