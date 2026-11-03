@@ -148,6 +148,7 @@ Play mode only advances while the Editor is ticking. Run In Background is on, bu
 **Split the work as much as possible.** The owner wants results fast, so the agent the owner starts acts as the **lead** (project manager): it breaks every phase into the largest set of independent tasks, runs them at the same time with worker subagents, and keeps `docs/WORKPLAN.md` current. Work runs in order only where one task truly needs another's result. Details: `docs/WORKFLOW.md`, "Lead agent and parallel work".
 
 - **One owner per file.** Tasks that run at the same time never edit the same file. Each code-writing worker uses its own branch (git worktree).
+- **Effort follows leverage.** The lead, the GDD, the architecture, the integrator and polish run at high effort on the strongest model; routine fan-out workers can run at default effort on a faster model. Table: `docs/WORKFLOW.md`, "Model and effort per phase".
 
 Only one process may hold the project open. A running Editor locks `Temp/UnityLockfile`, so the batch-mode CLI fails while it is open.
 - **Worker agents write files only**: C#, prefab/asset YAML they generate, configs, tests. They never open the Editor and never call MCP.

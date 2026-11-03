@@ -15,6 +15,24 @@ The owner wants results fast, so the work is split up as much as it safely can b
 - No fixed cap on workers: run as many as there are independent tasks. If there are more than about eight, start the ones the most other work depends on first, then continue in waves.
 - The lead keeps `docs/WORKPLAN.md` current: every task, its owner, its status, and what it is waiting on.
 
+## Model and effort per phase
+
+Spend reasoning where it sets direction, not where the spec already decides. A mistake in the GDD or the architecture is built on by every worker; a mistake in one worker's code is caught by its test. The lead sets `effort` (and `model`, where the owner's setup allows it) on each subagent it starts, and asks the owner to run the lead itself at high effort on the strongest model available.
+
+| Phase | Who | Effort | Model |
+| --- | --- | --- | --- |
+| 1. GDD (writer, and reference-image readers) | lead + subagents | high | strongest available |
+| 2. Architecture and interface stubs | lead + one subagent | high | strongest available |
+| 3. Fan-out workers | subagents | medium (default) | a faster model is fine; the task brief and the failing test carry the quality |
+| 3. A worker whose task is judgment-heavy (level layout, a puzzle, anything the GDD describes in feel words) | subagent | high | strongest available |
+| 4. Integrate (merging, reading failures, judging screenshots against the pitch) | integrator | high | strongest available |
+| 5. Polish | integrator + subagents | high | strongest available |
+| 6. Owner review (turning taste notes into tasks) | lead | high | strongest available |
+
+- Never lower effort to save time in phases 1, 2 or 4: the owner has credits to spend and would rather pay for a correct GDD than for a second fan-out.
+- If a worker fails its done check twice, re-run it at high effort before splitting the task further.
+- Record the models actually used in `docs/WORKPLAN.md` next to each task, so a weak result can be traced to its settings.
+
 ## 1. GDD
 - One agent expands `docs/BRIEF.md` into `docs/GDD.md` using `docs/GDD_TEMPLATE.md`, so the design reads as one voice.
 - The groundwork can run in parallel first: for example, one subagent per group of reference images, each returning a written summary of what its images show and how the owner's notes apply. The GDD writer works from those summaries and still opens any image it needs.
