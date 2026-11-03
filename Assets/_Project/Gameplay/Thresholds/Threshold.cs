@@ -25,8 +25,18 @@ namespace Kit.Gameplay.Thresholds
         public bool Exterior => exterior;
         public Transform PortalSurfaceRoot => portalSurfaceRoot != null ? portalSurfaceRoot : transform;
 
-        /// <summary>The plate on this threshold (BrassPlate or Letterboard), or null.</summary>
-        public INumberSource Source => source ??= GetComponentInChildren<INumberSource>(true);
+        /// <summary>
+        /// The plate on this threshold (BrassPlate or Letterboard), or null. Looked up again if the
+        /// cached plate was destroyed, because a dead plate must read as no number.
+        /// </summary>
+        public INumberSource Source
+        {
+            get
+            {
+                if (source is Object dead && dead == null) source = null;
+                return source ??= GetComponentInChildren<INumberSource>(true);
+            }
+        }
 
         /// <summary>Normalised number ("" = none).</summary>
         public string Number => ThresholdNumber.Normalize(Source != null ? Source.Raw : "");
