@@ -94,6 +94,14 @@ namespace Kit.Editor
                 OfficeKit.Config<LookConfig>(),
             };
 
+            // Lead-owned asset wiring for systems that have no builder of their own.
+            var thresholds = OfficeKit.Config<ThresholdConfig>();
+            if (thresholds.PlateMaterial == null)
+            {
+                thresholds.PlateMaterial = AssetDatabase.LoadAssetAtPath<Material>($"{OfficeKit.OfficeMaterialDir}/{OfficeKit.M.MetalDark}.mat");
+                EditorUtility.SetDirty(thresholds);
+            }
+
             var game = AssetDatabase.LoadAssetAtPath<GameConfig>(OfficeKit.ConfigDir + "/GameConfig.asset");
             if (game == null) return;
             var list = new List<ConfigAsset>(game.Systems ?? new ConfigAsset[0]);
