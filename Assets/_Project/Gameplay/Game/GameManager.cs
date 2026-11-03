@@ -30,13 +30,21 @@ namespace Kit.Gameplay
         PlayerController player;
         Pose spawnPose;
         bool pendingWin;
+        bool fellOutPublished;
 
         public GameConfig Config => config;
         public GameState State => fsm != null ? fsm.Current : GameState.Loading;
         public PlayerController Player => player;
 
+        /// <summary>Where the player spawned; the fallback respawn point when no safe ground is known yet.</summary>
+        public Pose SpawnPose => spawnPose;
+
+        /// <summary>True once GameCompleted fired this run (the player walked out). Play continues.</summary>
+        public bool Completed { get; private set; }
+
         void Awake()
         {
+            if (config != null) ConfigLookup.Register(config.Systems);
             fsm = new StateMachine<GameState>("Game");
             fsm.Configure(GameState.Playing, enter: () => Time.timeScale = 1f)
                .Configure(GameState.Paused,
@@ -51,6 +59,7 @@ namespace Kit.Gameplay
             EventBus.Subscribe<RestartRequested>(OnRestartRequested);
             EventBus.Subscribe<PauseToggleRequested>(OnPauseToggleRequested);
             EventBus.Subscribe<QuitRequested>(OnQuitRequested);
+            EventBus.Subscribe<GameCompleted>(OnGameCompleted);
         }
 
         void OnDisable()
@@ -59,6 +68,7 @@ namespace Kit.Gameplay
             EventBus.Unsubscribe<RestartRequested>(OnRestartRequested);
             EventBus.Unsubscribe<PauseToggleRequested>(OnPauseToggleRequested);
             EventBus.Unsubscribe<QuitRequested>(OnQuitRequested);
+            EventBus.Unsubscribe<GameCompleted>(OnGameCompleted);
         }
 
         void OnDestroy()
@@ -78,15 +88,33 @@ namespace Kit.Gameplay
         {
             if (fsm == null) return; // scripts were recompiled during play; restart play mode
             if (KitInput.Actions.UI.Pause.WasPressedThisFrame()) TogglePause();
-            if (player != null && player.transform.position.y < config.KillHeight) RespawnPlayer();
+            CheckFall();
             fsm.Tick(Time.unscaledDeltaTime);
         }
 
-        /// <summary>Puts a fallen player back at the spawn point with momentum cleared, and tells the camera to snap.</summary>
-        public void RespawnPlayer()
+        /// <summary>
+        /// Below KillHeight: either respawn at the spawn point (kit default) or publish PlayerFellOut
+        /// once and let the Flow system put the player back on the last solid ground (OOO).
+        /// </summary>
+        void CheckFall()
         {
             if (player == null) return;
-            player.Respawn(spawnPose);
+            if (player.transform.position.y >= config.KillHeight) { fellOutPublished = false; return; }
+            if (!config.RespawnAtSafeGround) { RespawnPlayer(); return; }
+            if (fellOutPublished) return;
+            fellOutPublished = true;
+            EventBus.Publish(new PlayerFellOut());
+        }
+
+        /// <summary>Puts a fallen player back at the spawn point with momentum cleared, and tells the camera to snap.</summary>
+        public void RespawnPlayer() => RespawnPlayer(spawnPose);
+
+        /// <summary>Puts the player at <paramref name="pose"/> with momentum cleared, and tells the camera to snap.</summary>
+        public void RespawnPlayer(Pose pose)
+        {
+            if (player == null) return;
+            player.Respawn(pose);
+            fellOutPublished = false;
             EventBus.Publish(new PlayerSpawned(player.transform, player.CameraTarget));
         }
 
@@ -111,6 +139,7 @@ namespace Kit.Gameplay
         }
 
         void OnRestartRequested(RestartRequested _) => Restart();
+        void OnGameCompleted(GameCompleted _) => Completed = true;
         void OnPauseToggleRequested(PauseToggleRequested _) => TogglePause();
 
         void OnQuitRequested(QuitRequested _)
@@ -137,6 +166,7 @@ namespace Kit.Gameplay
         IEnumerator RestartRoutine()
         {
             fsm.Transition(GameState.Loading);
+            Completed = false;
             Time.timeScale = 1f;
             yield return LoadPlayScene(reload: true);
             BeginPlaying();

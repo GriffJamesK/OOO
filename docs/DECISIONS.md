@@ -176,3 +176,17 @@ Dated, one line each. Add an entry whenever you choose something the spec or GDD
 - 2026-11-02: **Kit extension (owner-approved with the GDD):** an office mood material set (concrete, wood veneer, oxblood carpet, shell-chair orange, cubicle beige, plant green, CRT green emissive, brass) alongside the greybox role table. Thresholds get no role colour, so the mechanic isn't telegraphed.
 - 2026-11-02: GDD exceeds the template's two pages to hold the knowledge graph and six areas.
 - 2026-11-02: Owner, before signing off: run all remaining phases unattended with permission for everything development-related. Assets are built in-engine by editor builders (no CC0 downloads). Push to `origin/main` after each phase.
+
+## Phase 2: architecture and stubs (2026-11-02)
+
+- 2026-11-02: Threshold crossing convention is "front in, front out": PairMap = B * R(180 about up) * A^-1. Two thresholds facing each other across a passage make an endless passage, and entering from outside skips the passage. The A1 104 corridor and the A3 37 passage are built on that, with side entrances. The GDD's aisle "7" became "37" so A3's aisle numbers can't collide with other areas' plates; the authoritative number plan is in ARCHITECTURE.md.
+- 2026-11-02: Paired thresholds clamp exit speed to `ThresholdConfig.MaxExitSpeed` (26 m/s) after rotating velocity. Without it, the A5 shaft fall (about 41 m/s) would turn into an unpredictable launch.
+- 2026-11-02: The atrium (A2) owns its four outer walls and cuts every socket opening. Areas build up to the wall plane and dress their side. This prevents double walls and z-fighting where areas meet.
+- 2026-11-02: Added `Tools/quick-compile.ps1`. It reuses Unity's last compiler response files (Library/Bee) and runs Unity's bundled Roslyn on a worktree's sources: about 7 s, no Editor needed. Workers use it before handing back, because only one process can hold the project open.
+- 2026-11-02: `GameConfig.PlayScene` set to "Office" (built by `OfficeBuilder`), and Sandbox stays in the build. `GameConfig.Systems` lists the system configs, and `ConfigLookup.Get<T>()` gives self-installing systems their config (a default instance in tests).
+- 2026-11-02: `GameConfig.RespawnAtSafeGround` (default on): `GameManager` publishes `PlayerFellOut` once per fall and the Flow system respawns at the last safe ground (spawn as fallback). Off keeps the kit's spawn respawn.
+- 2026-11-02: Player teleport API: `PlayerController.Moved` (end of Update) and `TeleportThrough(map, maxExitSpeed)`. `CameraRig` re-aims pan and tilt by the map's rotation and warps Cinemachine on `PlayerTeleported`.
+- 2026-11-02: Layers added: Portal (8) for portal surfaces, which portal cameras skip (depth-1 recursion), and ViewModel (9) for carried tiles in view.
+- 2026-11-02: UI: title "OOO" with no subtitle, an Ending card faded by UIRouter on Core `GameCompleted`, and the HUD never shown (`UIRouter.showHud` off). The game-over panel stays in the prefab, unused.
+- 2026-11-02: Namespaces `Kit.Gameplay.Letterboards` and `Kit.Gameplay.Signage` (not `Letterboard`/`WorldText`), so the classes `Letterboard` and `WorldText` don't clash with their namespaces.
+- 2026-11-02: The kit test `BootDefaultsToFirstPerson_WithProfileFog` now checks that fog follows the play scene's own profile instead of a hard-coded 120 m, because Boot now plays the Office.

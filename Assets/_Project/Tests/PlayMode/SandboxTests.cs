@@ -36,9 +36,12 @@ namespace Kit.Tests.PlayMode
             Assert.IsTrue(gm.Player.FirstPersonView, "FPS rig should switch the player to first-person view.");
             Assert.AreEqual(0f, GameObject.Find("UI_Canvas/HUD").GetComponent<CanvasGroup>().alpha, "HUD starts hidden.");
 
-            // Fog comes from the Volume profile's KitFog (20-120 m), applied by LookController.
-            Assert.IsNotNull(Object.FindAnyObjectByType<Kit.Gameplay.Look.LookController>());
-            Assert.AreEqual(120f, RenderSettings.fogEndDistance, 0.01f);
+            // Fog comes from the play scene's Volume profile (KitFog), applied by LookController.
+            var look = Object.FindAnyObjectByType<Kit.Gameplay.Look.LookController>();
+            Assert.IsNotNull(look);
+            var profile = look.GetComponent<UnityEngine.Rendering.Volume>().sharedProfile;
+            Assert.IsTrue(profile.TryGet(out Kit.Gameplay.Look.KitFog fog), "The play scene's look profile carries KitFog.");
+            Assert.AreEqual(fog.end.value, RenderSettings.fogEndDistance, 0.01f);
         }
 
         [UnityTest]

@@ -108,13 +108,7 @@ namespace Kit.Editor
             Lightmapping.realtimeGI = false;
         }
 
-        static void ConfigureBuildSettings()
-        {
-            EditorBuildSettings.scenes = new[]
-            {
-                new EditorBuildSettingsScene(BootPath, true),
-                new EditorBuildSettingsScene(SandboxPath, true)
-            };
-        }
+        /// <summary>Boot, then the prototype's Office scene when it exists, then Sandbox (OfficeBuilder owns the list).</summary>
+        static void ConfigureBuildSettings() => OfficeBuilder.ConfigureBuildSettings();
     }
 }

@@ -38,6 +38,7 @@ namespace Kit.Gameplay
             EventBus.Subscribe<GameStarted>(OnGameStarted);
             EventBus.Subscribe<GamePaused>(OnGamePaused);
             EventBus.Subscribe<GameOver>(OnGameOver);
+            EventBus.Subscribe<PlayerTeleported>(OnPlayerTeleported);
             ApplyConfig();
 
             // Rig enabled after the player already spawned (e.g. switching rigs at runtime).
@@ -54,6 +55,7 @@ namespace Kit.Gameplay
             EventBus.Unsubscribe<GameStarted>(OnGameStarted);
             EventBus.Unsubscribe<GamePaused>(OnGamePaused);
             EventBus.Unsubscribe<GameOver>(OnGameOver);
+            EventBus.Unsubscribe<PlayerTeleported>(OnPlayerTeleported);
             SetLook(false);
         }
 
@@ -83,6 +85,28 @@ namespace Kit.Gameplay
                 virtualCamera.Lens.Dutch = player.CurrentCameraRoll;
             }
         }
+        /// <summary>
+        /// The player went through a threshold: turn the view by the same rotation (pan and tilt,
+        /// roll dropped) and warp Cinemachine by the position jump, so the frame after a crossing
+        /// looks exactly like walking on, with no sweep or damping across the level.
+        /// </summary>
+        void OnPlayerTeleported(PlayerTeleported e)
+        {
+            if (virtualCamera == null) return;
+            if (virtualCamera.Follow != null) virtualCamera.OnTargetObjectWarped(virtualCamera.Follow, e.Delta);
+            if (!virtualCamera.TryGetComponent(out CinemachinePanTilt panTilt)) return;
+
+            Vector3 forward = Quaternion.Euler(panTilt.TiltAxis.Value, panTilt.PanAxis.Value, 0f) * Vector3.forward;
+            Vector3 mapped = e.Map.MultiplyVector(forward).normalized;
+            Vector3 flat = new Vector3(mapped.x, 0f, mapped.z);
+            if (flat.sqrMagnitude < 0.0001f) flat = Vector3.ProjectOnPlane(e.Map.MultiplyVector(Quaternion.Euler(0f, panTilt.PanAxis.Value, 0f) * Vector3.forward), Vector3.up);
+            if (flat.sqrMagnitude > 0.0001f)
+                panTilt.PanAxis.Value = panTilt.PanAxis.ClampValue(Mathf.Atan2(flat.x, flat.z) * Mathf.Rad2Deg);
+            float tilt = -Mathf.Asin(Mathf.Clamp(mapped.y, -1f, 1f)) * Mathf.Rad2Deg;
+            if (config != null) tilt = Mathf.Clamp(tilt, -config.PitchMax, -config.PitchMin);
+            panTilt.TiltAxis.Value = tilt;
+        }
+
         void OnGameStarted(GameStarted _) => SetLook(true);
         void OnGamePaused(GamePaused e) => SetLook(!e.Paused);
         void OnGameOver(GameOver _) => SetLook(false);

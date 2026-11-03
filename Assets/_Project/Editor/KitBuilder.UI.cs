@@ -33,8 +33,7 @@ namespace Kit.Editor
             var dim = new Color(0.04f, 0.05f, 0.08f, 0.72f);
 
             var main = Panel(root.transform, "MainMenu", dim);
-            Label(main, "Title", "PROTOTYPE KIT", 120, new Vector2(0f, 200f), new Vector2(1600f, 180f));
-            Label(main, "Subtitle", "Replace this title from the GDD", 36, new Vector2(0f, 90f), new Vector2(1200f, 60f));
+            Label(main, "Title", "OOO", 160, new Vector2(0f, 200f), new Vector2(1600f, 220f));
             var play = UIButton(main, "PlayButton", "Play", new Vector2(0f, -40f));
             var quitMain = UIButton(main, "QuitButton", "Quit", new Vector2(0f, -150f));
 
@@ -56,6 +55,10 @@ namespace Kit.Editor
             var hint = Label(hud, "Hint", "Esc / Start: pause    ` : debug overlay", 24, Vector2.zero, new Vector2(900f, 40f));
             Anchor(hint.rectTransform, new Vector2(0.5f, 0f), new Vector2(0f, 30f));
 
+            // The ending card: no buttons, never blocks input; UIRouter fades it on GameCompleted.
+            var ending = Panel(root.transform, "Ending", Color.clear);
+            Label(ending, "Title", "OOO", 200, new Vector2(0f, 40f), new Vector2(1600f, 260f));
+
             var es = new GameObject("EventSystem");
             es.transform.SetParent(root.transform, false);
             es.AddComponent<EventSystem>().firstSelectedGameObject = play.gameObject;
@@ -66,6 +69,7 @@ namespace Kit.Editor
             Set(router, "pauseMenu", pause);
             Set(router, "gameOver", over);
             Set(router, "hud", hud);
+            Set(router, "ending", ending);
             Set(router, "gameOverLabel", overLabel);
             Set(router, "scoreLabel", score);
             Set(router, "playButton", play);
@@ -74,7 +78,7 @@ namespace Kit.Editor
             SetArray(router, "quitButtons", quitMain, quitPause, quitOver);
 
             // Only the main menu is visible in the saved prefab; UIRouter takes over at runtime.
-            foreach (var g in new[] { pause, over, hud }) g.alpha = 0f;
+            foreach (var g in new[] { pause, over, hud, ending }) g.alpha = 0f;
 
             SavePrefab(root, PrefabDir + "/UI/UI_Canvas.prefab");
         }

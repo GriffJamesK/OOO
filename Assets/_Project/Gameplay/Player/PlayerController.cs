@@ -45,6 +45,16 @@ namespace Kit.Gameplay
         /// <summary>Current vertical velocity, m/s (positive = up). For tests and debug reports.</summary>
         public float VerticalSpeed => verticalVelocity;
 
+        /// <summary>Full velocity this frame (horizontal momentum plus vertical), m/s.</summary>
+        public Vector3 Velocity => horizontal + Vector3.up * verticalVelocity;
+
+        /// <summary>
+        /// Fires at the end of every Update, after collisions and camera feel, with the position
+        /// the player had before this frame's move. Systems that react to where the player went
+        /// (threshold crossings) hook here, so they act in the same frame, before the camera updates.
+        /// </summary>
+        public event System.Action<PlayerController, Vector3> Moved;
+
         void Awake()
         {
             controller = GetComponent<CharacterController>();
@@ -99,6 +109,7 @@ namespace Kit.Gameplay
             float dt = Time.deltaTime;
             if (dt <= 0f) return; // paused
 
+            Vector3 previousPosition = transform.position;
             var actions = KitInput.Actions.Player;
             Vector2 move = inputEnabled ? Vector2.ClampMagnitude(actions.Move.ReadValue<Vector2>(), 1f) : Vector2.zero;
             bool hasInput = move.sqrMagnitude > 0.0001f;
@@ -132,6 +143,7 @@ namespace Kit.Gameplay
                 EventBus.Publish(new PlayerInteracted(CameraTarget.position, FirstPersonView ? CameraForward() : transform.forward));
             if (DebugOverlay.Visible)
                 DebugOverlay.Log("Player", $"{HorizontalSpeed:0.0} m/s {(wallRunning ? "wall" : sliding ? "slide" : surfing ? "surf" : grounded ? "ground" : "air")} chain x{ChainCount} fov {CurrentFieldOfView:0}");
+            Moved?.Invoke(this, previousPosition);
         }
 
         void UpdateFacing(float dt)

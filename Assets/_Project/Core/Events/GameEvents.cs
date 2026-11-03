@@ -20,6 +20,12 @@ namespace Kit.Core.Events
         public GameOver(bool won) { Won = won; }
     }
 
+    /// <summary>
+    /// The player reached the game's ending without a game over (OOO: walked out of the 000 door).
+    /// Play continues; UI shows the ending card from this.
+    /// </summary>
+    public readonly struct GameCompleted { }
+
     /// <summary>The player took damage. Amount is in the game's own health units.</summary>
     public readonly struct PlayerDamaged
     {
