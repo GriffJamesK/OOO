@@ -32,6 +32,7 @@ namespace Kit.Editor
             OKit.Zone(root, "A7", OfficeLayout.A7);
             A7_Ground(root);
             A7_Door(root);
+            A7_GroundNumerals(root);
             A7_Building(root);
             A7_Silhouettes(root);
             A7_SunDisc(root);
@@ -39,7 +40,7 @@ namespace Kit.Editor
             // Pale haze over the whole outside, down into the fall void too so a fall stays pale.
             var fog = new Bounds();
             fog.SetMinMax(new Vector3(72f, -26f, -220f), new Vector3(440f, 60f, 220f));
-            OKit.FogZone(root, "A7_Outside", fog, A7_FogColour, 10f, 170f, 3f, 10f);
+            OKit.FogZone(root, "A7_Outside", fog, A7_FogColour, 4f, 110f, 3f, 10f);
         }
 
         /// <summary>
@@ -95,7 +96,62 @@ namespace Kit.Editor
                 new Color(1f, 0.85f, 0.65f, 0.22f));
 
             var washPos = new Vector3(108.6f, 4.6f, 0f);
-            OKit.SpotLight(t, "A7_Sign_Wash", washPos, OKit.Facing(new Vector3(x0, 2.71f, 0f) - washPos), A7_Warm, 8f, 7f, 34f, false);
+            OKit.SpotLight(t, "A7_Sign_Wash", washPos, OKit.Facing(new Vector3(x0, 2.71f, 0f) - washPos), A7_Warm, 4f, 7f, 34f, false);
+        }
+
+        // Ground numerals "000": glyph size and placement (world metres). The glyph's "up" is +X.
+        const float A7_GlyphCentreX = 106.8f;  // x 104.6..109: A4's roof edge (y 18 at x 72) hides the ground nearer than about x 103.5 from the window
+        const float A7_GlyphLength = 4.4f;     // along X (the glyph's height), long to offset foreshortening from 25 m up
+        const float A7_GlyphWidth = 2.3f;      // along Z
+        const float A7_GlyphStroke = 0.55f;
+        const float A7_GlyphPitch = 3.1f;      // centre-to-centre along Z
+        const int A7_GlyphSegments = 32;
+
+        /// <summary>
+        /// Three zeros set flush into the pale ground in dark slate, between the building and the
+        /// door, like an old site marking. They're the readable form of the door's number from the
+        /// A6 boardroom window (the brass plate is only a few pixels from there). Each zero is a
+        /// rounded superellipse ring of slate segments, glyph "up" toward +X so it reads correctly
+        /// looking east and down. No colliders: the ground slab collides and the tops sit 3 mm
+        /// proud, so nothing trips.
+        /// </summary>
+        static void A7_GroundNumerals(Transform root)
+        {
+            var t = new GameObject("A7_GroundNumerals").transform;
+            t.SetParent(root, false);
+            for (int g = -1; g <= 1; g++)
+                A7_ZeroGlyph(t, $"A7_Zero_{g + 1}", new Vector3(A7_GlyphCentreX, 0f, g * A7_GlyphPitch));
+        }
+
+        /// <summary>
+        /// One flush "0": boxes laid along the centreline of a superellipse (exponent 2.6, so it has
+        /// a typeface digit's straight-ish sides and round ends), each overlapping its neighbours
+        /// so the ring has no gaps.
+        /// </summary>
+        static void A7_ZeroGlyph(Transform parent, string name, Vector3 centre)
+        {
+            var t = new GameObject(name).transform;
+            t.SetParent(parent, false);
+            float a = (A7_GlyphLength - A7_GlyphStroke) * 0.5f; // centreline half-extent along X
+            float b = (A7_GlyphWidth - A7_GlyphStroke) * 0.5f;  // centreline half-extent along Z
+            const float e = 2f / 2.6f;
+            const float top = 0.003f, depth = 0.05f;
+
+            Vector3 Point(int i)
+            {
+                float th = i * Mathf.PI * 2f / A7_GlyphSegments;
+                float c = Mathf.Cos(th), s = Mathf.Sin(th);
+                return centre + new Vector3(a * Mathf.Sign(c) * Mathf.Pow(Mathf.Abs(c), e), 0f, b * Mathf.Sign(s) * Mathf.Pow(Mathf.Abs(s), e));
+            }
+
+            for (int i = 0; i < A7_GlyphSegments; i++)
+            {
+                Vector3 p0 = Point(i), p1 = Point(i + 1);
+                Vector3 dir = p1 - p0;
+                float len = dir.magnitude + A7_GlyphStroke * 0.35f; // overlap fills the outer corner at each joint
+                var mid = (p0 + p1) * 0.5f + Vector3.up * (top - depth * 0.5f);
+                OKit.BoxAt(t, $"Seg_{i:00}", OMat.Slate, mid, new Vector3(A7_GlyphStroke, depth, len), Quaternion.LookRotation(dir.normalized, Vector3.up), false);
+            }
         }
 
         /// <summary>
