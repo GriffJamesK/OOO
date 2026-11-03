@@ -19,6 +19,9 @@ namespace Kit.Gameplay.Portals
         [Tooltip("Render texture size as a fraction of the screen.")]
         public float ResolutionScale = 1f;
 
+        [Tooltip("The surface overlaps the opening by this much on each side (m), hidden inside the frame, so no crack of the real room shows at the edges.")]
+        public float SurfaceMargin = 0.01f;
+
         [Tooltip("Material on the portal surface (Kit/Portal shader). Assigned by the Portals builder.")]
         public Material SurfaceMaterial;
 
@@ -28,6 +31,7 @@ namespace Kit.Gameplay.Portals
             MaxActive = Mathf.Clamp(MaxActive, 0, 16);
             NearExtrude = Mathf.Max(0f, NearExtrude);
             ResolutionScale = Mathf.Clamp(ResolutionScale, 0.25f, 1f);
+            SurfaceMargin = Mathf.Clamp(SurfaceMargin, 0f, 0.1f);
         }
     }
 }
