@@ -127,11 +127,11 @@ No enemies, combat, fail state, timer, save system (knowledge lives in the playe
 5. **Rendering risk:** see-through thresholds (F3) need portal rendering in URP (a camera per visible pair, rendered to a texture, depth 1). Phase 2 should spike this first. If it costs too much, the fallback is frosted-glass doors that reveal on crossing, which loses some of the wow.
 
 ## Polish checklist
-- [ ] Tween on every state change
-- [ ] Hit-stop / camera shake on impacts where relevant
-- [ ] Particles on impacts and pickups
-- [ ] Audio stubs on every action (placeholder clips allowed)
-- [ ] Main menu, pause, game-over, restart all reachable (game over replaced by the ending: see Departures 1)
-- [ ] Post-processing profile tuned to the GDD palette
-- [ ] Title shown on boot
-- [ ] Zero console errors or warnings in a full play-through
+- [x] Tween on every state change: menu and pause panels fade, the ending card fades in, holds and fades out, and respawns fade from black.
+- [x] Hit-stop / camera shake on impacts where relevant: a small camera jolt on hard landings (9 m/s or more), stronger after the launch. No hit-stop: there's no combat.
+- [x] Particles on impacts and pickups: settling concrete dust on hard landings and boosted slides, felt-and-grit puffs when tiles are pulled or placed, a faint floor swirl when arriving through a door at speed.
+- [x] Audio stubs on every action: procedural footsteps (carpet/concrete), jump, land, slide, wall run, threshold "whump", tile clicks, respawn, per-area ambience, the ending chord.
+- [x] Main menu, pause, game-over, restart all reachable. Game over is replaced by the ending (Departures 1). `OfficeFlowTests` covers the rest.
+- [x] Post-processing profile tuned to the GDD palette: Volume_Office (fog #2A323C, ACES, bloom, cool grade, lifted blacks, exposure +1.5).
+- [x] Title shown on boot ("OOO").
+- [x] Zero console errors or warnings in a full play-through (checked after the route tests, the scripted runs and the full test suites).

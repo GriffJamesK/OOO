@@ -210,3 +210,4 @@ Dated, one line each. Add an entry whenever you choose something the spec or GDD
 - 2026-11-02: `PlayerLanded(position, fallSpeed)` event added (PlayerController) for impact feel and audio.
 - 2026-11-02: Product name set to "OOO".
 - 2026-11-02: `OfficeBot` (Gameplay/Game) plays scripted runs on a virtual gamepad, so movement-gated routes are checked with the real input path: the shutter slide, the 412 hatch, the transom hop.
+- 2026-11-02: SignageTests compare materials and fonts with Unity equality (`Assert.AreEqual`), not reference identity. With domain reload off, a reimport can leave two managed wrappers for one native material, which `AreSame` treats as different.

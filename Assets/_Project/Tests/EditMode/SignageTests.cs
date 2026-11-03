@@ -52,11 +52,11 @@ namespace Kit.Tests.EditMode
             Assert.IsNotNull(tm, "TextMesh");
             Assert.IsNotNull(mr, "MeshRenderer");
             Assert.AreEqual("RECEPTION\nFLOOR 2", tm.text);
-            Assert.AreSame(ExpectedFont(cfg), tm.font);
+            Assert.AreEqual(ExpectedFont(cfg), tm.font);
             Assert.AreEqual(TextAlignment.Center, tm.alignment);
             Assert.AreEqual(TextAnchor.MiddleCenter, tm.anchor);
             Assert.IsFalse(tm.richText);
-            Assert.AreSame(ExpectedMaterial(cfg, WorldTextStyle.DarkOnLight), mr.sharedMaterial);
+            Assert.AreEqual(ExpectedMaterial(cfg, WorldTextStyle.DarkOnLight), mr.sharedMaterial);
             Assert.AreEqual(UnityEngine.Rendering.ShadowCastingMode.Off, mr.shadowCastingMode);
         }
 
@@ -75,8 +75,8 @@ namespace Kit.Tests.EditMode
                 Assert.IsTrue(block.isEmpty, "fallback font material needs no property block");
                 return;
             }
-            Assert.AreSame(cfg.StyleMaterials[(int)WorldTextStyle.Brass], mr.sharedMaterial);
-            Assert.AreSame(font.material.mainTexture, block.GetTexture("_MainTex"));
+            Assert.AreEqual(cfg.StyleMaterials[(int)WorldTextStyle.Brass], mr.sharedMaterial);
+            Assert.AreEqual(font.material.mainTexture, block.GetTexture("_MainTex"));
         }
 
         [Test]
@@ -90,7 +90,7 @@ namespace Kit.Tests.EditMode
             {
                 wt.Set("EXIT", 0.12f, style);
                 Assert.AreEqual(style, wt.Style);
-                Assert.AreSame(ExpectedMaterial(cfg, style), mr.sharedMaterial, style.ToString());
+                Assert.AreEqual(ExpectedMaterial(cfg, style), mr.sharedMaterial, style.ToString());
             }
 
             var dark = ExpectedMaterial(cfg, WorldTextStyle.DarkOnLight);
@@ -98,9 +98,9 @@ namespace Kit.Tests.EditMode
             if (dark != glow)
             {
                 wt.Set("EXIT", 0.12f, WorldTextStyle.DarkOnLight);
-                Assert.AreSame(dark, mr.sharedMaterial);
+                Assert.AreEqual(dark, mr.sharedMaterial);
                 wt.Set("EXIT", 0.12f, WorldTextStyle.Glow);
-                Assert.AreSame(glow, mr.sharedMaterial);
+                Assert.AreEqual(glow, mr.sharedMaterial);
             }
         }
 
