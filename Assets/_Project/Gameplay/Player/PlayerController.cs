@@ -129,7 +129,11 @@ namespace Kit.Gameplay
             ResolveContacts(grounded);
             bool landed = !wasGrounded && onWalkableGround;
             wasGrounded = onWalkableGround;
-            if (landed) OnLanded(slideHeld, wish);
+            if (landed)
+            {
+                OnLanded(slideHeld, wish);
+                EventBus.Publish(new PlayerLanded(transform.position, Mathf.Max(0f, fallSpeed)));
+            }
 
             // A step up or down on flat ground pops the body by up to a step height in one frame;
             // the camera eases that out (UpdateFeel) so stairs glide.

@@ -52,6 +52,14 @@ namespace Kit.Gameplay
         public TilePlaced(Letterboards.Letterboard board, int slot, char glyph) { Board = board; Slot = slot; Glyph = glyph; }
     }
 
+    /// <summary>The player touched walkable ground after being airborne. FallSpeed is the downward speed at impact (m/s). Hook for landing dust, shake and thumps.</summary>
+    public readonly struct PlayerLanded
+    {
+        public readonly Vector3 Position;
+        public readonly float FallSpeed;
+        public PlayerLanded(Vector3 position, float fallSpeed) { Position = position; FallSpeed = fallSpeed; }
+    }
+
     /// <summary>The player fell below GameConfig.KillHeight (published once per fall). The Flow system respawns them.</summary>
     public readonly struct PlayerFellOut { }
 
