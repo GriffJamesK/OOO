@@ -1,0 +1,118 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0c4100e320c2aa747913f82429401479, type: 3}
+  m_Name: PlayerConfig
+  m_EditorClassIdentifier: Kit.Gameplay::Kit.Gameplay.PlayerConfig
+  MoveSpeed: 6
+  SprintMultiplier: 1.5
+  AccelerationTime: 0.2
+  AccelerationCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  TurnSpeed: 720
+  JumpHeight: 1.5
+  Gravity: -30
+  CoyoteTime: 0.1
+  JumpBufferTime: 0.12
+  MaxSpeed: 26
+  ChainWindow: 0.15
+  MomentumFriction: 14
+  HopBoost: 0.6
+  GroundSteer: 360
+  AirAccelerate: 12
+  AirWishSpeedCap: 0.6
+  StreakBoostPerChain: 0.15
+  StreakMaxChains: 8
+  SlideJumpTurn: 120
+  SlideMinStartSpeed: 5
+  SlideBoost: 2
+  SlideBoostCooldown: 0.6
+  SlideFriction: 4
+  SlideEndSpeed: 3
+  SlideSteer: 60
+  SlideHeight: 1
+  SlideEyeHeight: 0.8
+  CrouchSpeed: 3
+  WallRunMinSpeed: 7
+  WallCheckDistance: 0.45
+  WallRunMaxApproachAngle: 75
+  WallRunUpSpeed: 3.5
+  WallRunGravity: -7
+  WallRunMaxTime: 1.4
+  WallRunFriction: 1.5
+  WallRunCooldown: 0.5
+  WallJumpGrace: 0.15
+  WallJumpPush: 6
+  WallJumpBoost: 1
+  WallJumpUpFactor: 0.9
+  WallJumpAimTurn: 90
+  WallJumpSteerLock: 0.25
+  WallDetachInput: 0.9
+  WallRunCameraTilt: 12
+  CameraTiltResponse: 10
+  FieldOfView: 95
+  SpeedFovKick: 35
+  BoostFovPunch: 6
+  BoostFovPunchTime: 0.35
+  SpeedFovCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 2.2
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  FovResponse: 10
+  HeadBobAmplitude: 0.018
+  HeadBobStride: 3.2
+  HeadBobSway: 0.35
+  LandingDipPerSpeed: 0.012
+  LandingDipMax: 0.18
+  LandingRecoverTime: 0.22
+  EyeHeightResponse: 14

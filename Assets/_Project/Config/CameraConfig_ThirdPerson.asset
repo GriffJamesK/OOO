@@ -1,0 +1,22 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d19082043115fa049969ff63b65be204, type: 3}
+  m_Name: CameraConfig_ThirdPerson
+  m_EditorClassIdentifier: Kit.Gameplay::Kit.Gameplay.CameraConfig
+  Distance: 6
+  Damping: 0.3
+  FieldOfView: 60
+  MouseSensitivity: 0.12
+  GamepadLookSpeed: 180
+  PitchMin: -10
+  PitchMax: 60
+  StartPitch: 15

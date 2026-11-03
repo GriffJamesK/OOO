@@ -1,0 +1,27 @@
+{
+    "name": "Kit.Editor",
+    "rootNamespace": "Kit.Editor",
+    "references": [
+        "Kit.Core",
+        "Kit.Input",
+        "Kit.Gameplay",
+        "Kit.UI",
+        "Unity.Cinemachine",
+        "Unity.InputSystem",
+        "UnityEngine.UI",
+        "Unity.RenderPipelines.Core.Runtime",
+        "Unity.RenderPipelines.Universal.Runtime",
+        "Unity.RenderPipelines.Universal.Editor"
+    ],
+    "includePlatforms": [
+        "Editor"
+    ],
+    "excludePlatforms": [],
+    "allowUnsafeCode": false,
+    "overrideReferences": false,
+    "precompiledReferences": [],
+    "autoReferenced": false,
+    "defineConstraints": [],
+    "versionDefines": [],
+    "noEngineReferences": false
+}

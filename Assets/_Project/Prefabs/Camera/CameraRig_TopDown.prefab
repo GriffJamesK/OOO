@@ -1,0 +1,130 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &5637536975371251189
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 2698137606686135680, guid: 8b07c987b25d3014f8a1a8afa08011ce, type: 3}
+      propertyPath: mode
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 2698137606686135680, guid: 8b07c987b25d3014f8a1a8afa08011ce, type: 3}
+      propertyPath: config
+      value: 
+      objectReference: {fileID: 11400000, guid: addc0b00609b46542bf04d9cec72a137, type: 2}
+    - target: {fileID: 3865750982288586706, guid: 8b07c987b25d3014f8a1a8afa08011ce, type: 3}
+      propertyPath: m_Name
+      value: CameraRig_TopDown
+      objectReference: {fileID: 0}
+    - target: {fileID: 6178915655900657555, guid: 8b07c987b25d3014f8a1a8afa08011ce, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6178915655900657555, guid: 8b07c987b25d3014f8a1a8afa08011ce, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6178915655900657555, guid: 8b07c987b25d3014f8a1a8afa08011ce, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6178915655900657555, guid: 8b07c987b25d3014f8a1a8afa08011ce, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6178915655900657555, guid: 8b07c987b25d3014f8a1a8afa08011ce, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6178915655900657555, guid: 8b07c987b25d3014f8a1a8afa08011ce, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6178915655900657555, guid: 8b07c987b25d3014f8a1a8afa08011ce, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6178915655900657555, guid: 8b07c987b25d3014f8a1a8afa08011ce, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6178915655900657555, guid: 8b07c987b25d3014f8a1a8afa08011ce, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6178915655900657555, guid: 8b07c987b25d3014f8a1a8afa08011ce, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7562675645372736602, guid: 8b07c987b25d3014f8a1a8afa08011ce, type: 3}
+      propertyPath: Lens.FieldOfView
+      value: 45
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 6996583429150136747, guid: 8b07c987b25d3014f8a1a8afa08011ce, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7291476071467707331}
+    - targetCorrespondingSourceObject: {fileID: 6996583429150136747, guid: 8b07c987b25d3014f8a1a8afa08011ce, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5720540828667730805}
+  m_SourcePrefab: {fileID: 100100000, guid: 8b07c987b25d3014f8a1a8afa08011ce, type: 3}
+--- !u!1 &3396934086089176158 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6996583429150136747, guid: 8b07c987b25d3014f8a1a8afa08011ce, type: 3}
+  m_PrefabInstance: {fileID: 5637536975371251189}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &7291476071467707331
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3396934086089176158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b617507da6d07e749b7efdb34e1173e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineFollow
+  TrackerSettings:
+    BindingMode: 4
+    PositionDamping: {x: 0.5, y: 0.5, z: 0.5}
+    AngularDampingMode: 0
+    RotationDamping: {x: 1, y: 1, z: 1}
+    QuaternionDamping: 1
+  FollowOffset: {x: 0, y: 15.588458, z: -8.999999}
+--- !u!114 &5720540828667730805
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3396934086089176158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f38bda98361e1de48a4ca2bd86ea3c17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineRotationComposer
+  Composition:
+    ScreenPosition: {x: 0, y: 0}
+    DeadZone:
+      Enabled: 0
+      Size: {x: 0.2, y: 0.2}
+    HardLimits:
+      Enabled: 0
+      Size: {x: 0.8, y: 0.8}
+      Offset: {x: 0, y: 0}
+  CenterOnActivate: 1
+  TargetOffset: {x: 0, y: 0, z: 0}
+  Damping: {x: 0.25, y: 0.25}
+  Lookahead:
+    Enabled: 0
+    Time: 0
+    Smoothing: 0
+    IgnoreY: 0

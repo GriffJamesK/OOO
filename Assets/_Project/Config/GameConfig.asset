@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c14dcf0abc1abe345b71b372ce4919df, type: 3}
+  m_Name: GameConfig
+  m_EditorClassIdentifier: Kit.Gameplay::Kit.Gameplay.GameConfig
+  PlayScene: Sandbox
+  SpawnPointName: PlayerSpawn
+  PlayerPrefab: {fileID: 6787687670206807945, guid: bee9d5216d5e9e947a8cf6c52d1a1106, type: 3}
+  KillHeight: -25
