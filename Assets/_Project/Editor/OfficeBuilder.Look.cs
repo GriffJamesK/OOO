@@ -289,6 +289,7 @@ namespace Kit.Editor
 
             var colour = Look_Component<ColorAdjustments>(profile);
             colour.contrast.Override(12f);
+            colour.postExposure.Override(1.5f); // integrator: interiors read too dark at 0 with realtime-only lighting (screenshots, phase 4)
             colour.saturation.Override(-15f);
             colour.colorFilter.Override(new Color(0.93f, 0.97f, 1f));
 

@@ -141,6 +141,11 @@ namespace Kit.Editor
             BuildArea_A6(AreaRoot("A6_ExecutiveWing"));
             BuildArea_A7(AreaRoot("A7_Outside"));
 
+            // One knob for the whole building's light level (LookConfig.LightIntensityScale).
+            float lightScale = OfficeKit.Config<LookConfig>().LightIntensityScale;
+            foreach (var light in Object.FindObjectsByType<Light>(FindObjectsInactive.Include))
+                if (light.type != LightType.Directional) light.intensity *= lightScale;
+
             var spawn = new GameObject("PlayerSpawn");
             spawn.transform.SetPositionAndRotation(OfficeLayout.SpawnPosition, OfficeLayout.SpawnRotation);
 
@@ -155,11 +160,11 @@ namespace Kit.Editor
         /// </summary>
         static void ApplyEnvironment()
         {
-            RenderSettings.skybox = AssetDatabase.LoadAssetAtPath<Material>(OfficeKit.Root + "/Materials/Mat_Skybox_Default.mat");
+            RenderSettings.skybox = OfficeSkybox();
             RenderSettings.ambientMode = AmbientMode.Trilight;
-            RenderSettings.ambientSkyColor = new Color(0.16f, 0.19f, 0.23f);
-            RenderSettings.ambientEquatorColor = new Color(0.10f, 0.11f, 0.13f);
-            RenderSettings.ambientGroundColor = new Color(0.05f, 0.05f, 0.06f);
+            RenderSettings.ambientSkyColor = new Color(0.30f, 0.33f, 0.38f);
+            RenderSettings.ambientEquatorColor = new Color(0.20f, 0.21f, 0.23f);
+            RenderSettings.ambientGroundColor = new Color(0.07f, 0.07f, 0.08f);
             RenderSettings.fog = true;
             RenderSettings.fogMode = FogMode.Linear;
             RenderSettings.fogStartDistance = 8f;
@@ -167,6 +172,31 @@ namespace Kit.Editor
             RenderSettings.fogColor = new Color(0.165f, 0.196f, 0.235f); // #2A323C
             Lightmapping.bakedGI = false;
             Lightmapping.realtimeGI = false;
+        }
+
+        /// <summary>
+        /// A pale, hazy procedural sky (playdead_01: white-grey haze, a faint sun): the skylights
+        /// glow white instead of blue, and the outside reads as fog rather than a clear day.
+        /// Created or updated in place at Materials/Office/Mat_Skybox_Office.mat.
+        /// </summary>
+        static Material OfficeSkybox()
+        {
+            string path = OfficeKit.OfficeMaterialDir + "/Mat_Skybox_Office.mat";
+            var mat = AssetDatabase.LoadAssetAtPath<Material>(path);
+            if (mat == null)
+            {
+                mat = new Material(Shader.Find("Skybox/Procedural"));
+                AssetDatabase.CreateAsset(mat, path);
+            }
+            mat.SetFloat("_SunDisk", 1f);
+            mat.SetFloat("_SunSize", 0.025f);
+            mat.SetFloat("_SunSizeConvergence", 4f);
+            mat.SetFloat("_AtmosphereThickness", 2.6f);
+            mat.SetColor("_SkyTint", new Color(0.62f, 0.64f, 0.66f));
+            mat.SetColor("_GroundColor", new Color(0.72f, 0.74f, 0.76f));
+            mat.SetFloat("_Exposure", 1.05f);
+            EditorUtility.SetDirty(mat);
+            return mat;
         }
 
         /// <summary>Boot first, then the Office (the game), then the kit's Sandbox course.</summary>

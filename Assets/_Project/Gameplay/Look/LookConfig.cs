@@ -30,6 +30,10 @@ namespace Kit.Gameplay.Look
         [Tooltip("Darkest a flicker gets, as a fraction of the light's normal intensity.")]
         [Range(0f, 1f)] public float FlickerDimLevel = 0.08f;
 
+        [Header("Build")]
+        [Tooltip("OfficeBuilder multiplies every point and spot light the area builders place by this, so the whole building's light level is tuned in one number (realtime-only lighting has no bounce, so interiors need more direct light than a baked scene).")]
+        public float LightIntensityScale = 2.5f;
+
         [Header("Screen glow")]
         [Tooltip("CRT glow pulse speed (cycles per second).")]
         public float ScreenGlowRate = 0.35f;
@@ -74,6 +78,7 @@ namespace Kit.Gameplay.Look
         protected override void Sanitize()
         {
             FlickerInterval = Mathf.Max(0.5f, FlickerInterval);
+            LightIntensityScale = Mathf.Max(0f, LightIntensityScale);
             FlickerMinDuration = Mathf.Max(0.02f, FlickerMinDuration);
             FlickerMaxDuration = Mathf.Max(FlickerMinDuration, FlickerMaxDuration);
             FlickerStepMin = Mathf.Max(0.005f, FlickerStepMin);

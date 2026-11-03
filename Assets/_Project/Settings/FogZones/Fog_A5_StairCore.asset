@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &-6872843704407134717
+MonoBehaviour:
+  m_ObjectHideFlags: 3
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 92801703cddfed5498a5da45cf6df1d0, type: 3}
+  m_Name: KitFog
+  m_EditorClassIdentifier: Kit.Gameplay::Kit.Gameplay.Look.KitFog
+  active: 1
+  enabled:
+    m_OverrideState: 1
+    m_Value: 1
+  start:
+    m_OverrideState: 1
+    m_Value: 3
+  end:
+    m_OverrideState: 1
+    m_Value: 48
+  color:
+    m_OverrideState: 1
+    m_Value: {r: 0.13, g: 0.155, b: 0.185, a: 1}
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7fd9488000d3734a9e00ee676215985, type: 3}
+  m_Name: Fog_A5_StairCore
+  m_EditorClassIdentifier: Unity.RenderPipelines.Core.Runtime::UnityEngine.Rendering.VolumeProfile
+  components:
+  - {fileID: -6872843704407134717}
