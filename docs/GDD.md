@@ -55,24 +55,35 @@ Feel: **flowing** (fast, playful movement in a slow, melancholic space).
 
 | Knowledge | Learned in | What it opens |
 | --- | --- | --- |
-| K1: matching numbers connect | A1 (the 104 loop) | understanding the loops; the elevator pairs between areas |
-| K2: tiles move, and moving them rewires | A3 (aisle 7 loop) | breaking loops; building your own links |
+| K1: matching numbers connect | A1 (the 104 loop) | understanding the loops; door 1 from the waiting room to the lobby |
+| K2: tiles move, and moving them rewires | A3 (the 37 records passage) | breaking loops; building your own links |
 | K3: floors and ceilings count; speed is turned, not lost | A5 (shaft hatch 6) | the launch to A6 and the high vantage |
-| K4: the building can't tell letter O from 0 | A4 (menu board "S0UP", "C0FFEE") | an unlimited supply of zeros |
-| K5: one number exists outside: 000 | A6 (boardroom window view) | the way out |
+| K4: the building can't tell letter O from 0 | A4 (menu board "S0UP", "C0FFEE"), A3 (Facilities memo) | an unlimited supply of zeros |
+| K5: one number exists outside: 000 | A6 (boardroom window: 000 on the plain; whiteboard "000 — ?") | the way out |
 
-**Expert route:** spawn, take the transom into the Atrium, drop to the lobby, wall-run up to the directory letterboard and pull three O tiles from "OUT OF OFFICE". Set them on the cloakroom's blank letterboard plate (000) and step out into the fog. About two minutes.
+**Expert route:** from spawn, walk through reception door 1, which pairs with the lobby's front door 1. Wall-run along the lobby's south wall and pull three O tiles from "OUT OF OFFICE" on the directory. The cafeteria menu also has letter O's ("TODAY", "TOAST") at floor height. Set the tiles on the cloakroom's blank letterboard plate so it reads 000, and step out into the fog. About two minutes. The play-mode test `ExpertRoute_DoorOne_LetterOs_Cloakroom_Out` runs it end to end.
 
 ## Areas (six, connected around the Atrium hub)
 
 Floors are 4 m apart. Each area gets its own builder or prefab so areas can be built in parallel.
 
-- **A1 Waiting Room (L2, spawn):** inside_02 chairs, control_01 wood, the NOW SERVING display. The 104 loop. Exits: a transom window (wall run) or a slide under a security shutter to the Atrium L2 gallery.
-- **A2 Atrium (L0-L6, hub):** about 40 x 60 m with a 26 m void, galleries on every level, a monumental stair L0-L2, a central planter with a tree, skylight shafts, and severance_01 seating pits at L0. The lobby's revolving doors are brass 1, paired with A1's internal door 1, so "leaving" loops you into the waiting room. The lobby directory letterboard sits 6 m up a wall, reached by wall run. Elevator doors on each gallery carry their floor numbers.
-- **A3 Open Plan (L3):** twelve aisles of cubicles under overhead aisle signs. Aisle 7 is signed at both ends, so it loops forever. Pull a tile to break the loop and reach door 312 at the far end. Surfable partition tops and wall-runnable filing walls give a fast way across.
-- **A4 Cafeteria (L4):** inside_02 wholesale: a dark hall about 50 x 35 m, one skylight shaft, a hanging garden, stepped concrete seating terraces whose 60 degree planter faces are surf ramps. The menu letterboard teaches K4. A kitchen roller shutter is numbered 4-12, matching a hatch in A3, as a shortcut.
-- **A5 Stair Core (L-1 to L6):** brutal_01: an open concrete stair shaft with cantilevered landings, one great curved wall and a 28 m void. At the bottom a floor hatch marked 6 pairs with a raised wall opening marked 6 on the Atrium's L6 face, angled 25 degrees up. Dropping in launches you about 30 m across the void to A6. You can't reach A6 on foot.
-- **A6 Executive Wing (L6):** oxblood carpet and wood, lit glass meeting rooms in darkness (inside_01), whiteboards drawn with lines between numbers, and a director's office with an OUT OF OFFICE hang tag. The boardroom window looks out over the fog to a single free-standing lit door whose lintel reads **000** (the exterior threshold, K5).
+- **A1 Waiting Room (L4, spawn):**
+  - inside_02 chairs, control_01 wood, the NOW SERVING display. Reception door 1 leads to the lobby.
+  - The corridor's two ends are the 104 pair, facing each other, so it loops endlessly.
+  - Exits: a high transom window (a hop from the radiator bench, or a wall run) or a slide under a half-lowered shutter (1.25 m gap), both onto the Atrium L4 gallery.
+- **A2 Atrium (L0-L6, hub):** about 40 x 60 m with a 26 m void, galleries on every level, a monumental stair L0-L2, a central planter with a tree, skylight shafts, and severance_01 seating pits at L0. The lobby's revolving doors are brass 1, paired with A1's internal door 1, so "leaving" loops you into the waiting room. The lobby directory letterboard sits about 6 m up the south wall (bottom row "OUT OF OFFICE"), reached by a wall run. The cloakroom (a blank 3-slot plate) is under the L1 west gallery. Elevator doors G-4 carry numbers but aren't thresholds, a quiet red herring. The cantilevered boardroom pod at L6 is reached only by the launch.
+- **A3 Open Plan (L3):**
+  - Aisles of cubicles under letterboard aisle signs 31-42.
+  - The enclosed records passage has a 37 plate at each end, facing inward, so it loops forever. You enter it by a side door.
+  - Pull a tile from either 37 to break the loop and reach the Records Room and door 312.
+  - A floor-level 412 hatch near the entry is a slide-through shortcut to the cafeteria kitchen.
+- **A4 Cafeteria (L1):**
+  - inside_02 wholesale: a dark hall about 50 x 50 m and 14 m tall, one skylight shaft, a hanging garden, about 120 orange shell chairs.
+  - Stepped seating terraces; the balcony with door 312 is reached by a movement route.
+  - The menu letterboard teaches K4.
+  - The kitchen roller shutter 412 pairs with A3's hatch.
+- **A5 Stair Core (L-1 to L6):** brutal_01: an open concrete stair shaft with cantilevered landings, one great curved wall and a 28 m void. At the bottom a 3 x 3 floor hatch marked 6 pairs with a high opening marked 6 on the Atrium's west wall, angled 30 degrees up. Dropping in from the top landing launches you at 26 m/s across the void onto the boardroom pod and into A6. You can't reach A6 on foot.
+- **A6 Executive Wing (L6):** oxblood carpet and wood, lit glass meeting rooms in darkness (inside_01), whiteboards drawn with lines between numbers, and a director's office with an OUT OF OFFICE hang tag. The boardroom window looks out over the fog to a single free-standing lit door (the exterior threshold, K5). Behind it, readable from the window, a tall stele carries a brass **000**, and three large zeros are inlaid in the pale ground in front of it.
 - **Ending:** any threshold set to 000 pairs with the exterior door. Step through onto a vast, pale, foggy plain (playdead_01). The door shuts behind you, and after 6 s the title "OOO" fades in. The player can keep walking. The pause menu still works.
 
 ## Controls, camera, scale
