@@ -190,7 +190,7 @@ How `docs/GDD.md` becomes code. Read `CLAUDE.md` first. Every interface named he
 | A7 Outside | x 72..420, z -200..200, y 0 | 0 | the exterior door 000 only (A6 windows look over it) |
 
 **Sockets** (the wall plane is shared, and each side builds its own half of the wall):
-- `A1_Transom` x -20, y 16 + 2.6 .. 16 + 3.4, z 2 .. 4; `A1_Shutter` x -20, y 16 .. 16 + 0.9 (half-lowered), z -6 .. -3. The A2 L4 west gallery must run past both.
+- `A1_Transom` x -20, y 17.6 .. 19.6, z 1.2 .. 2.8: a high window, sill 1.6 m above the corridor floor, 2 m tall so an airborne 1.8 m capsule fits. `A1_Shutter` x -20, y 16 .. 17.25 (half-lowered, 1.25 m: a slide fits, standing doesn't), z -6 .. -3. The A2 L4 west gallery must run past both.
 - `A3_Entry` z 30, x -2 .. 2, y 12 .. 15 (A2 L3 north gallery).
 - `A4_Entry` x 20, z -3 .. 3, y 4 .. 7 (A2 L1 east gallery).
 - `A5_L0` x -20, z -26 .. -22, y 0 .. 3; `A5_L2` x -20, z -26 .. -22, y 8 .. 11.
@@ -200,7 +200,7 @@ How `docs/GDD.md` becomes code. Read `CLAUDE.md` first. Every interface named he
 
 ## Threshold number plan (authoritative)
 
-**Both thresholds of a pair have the same opening size and the same sill height above their floor.** The map is rigid: an off-centre entry comes out at the mirrored offset, so a smaller partner would put the player inside a wall. Sizes: 104 is 1.2 x 2.4. 1, 312 and 000 (and the cloakroom) are 1 x 2.1 (`OfficeLayout.Door`). 37 is 2.4 x 2.6. 412 is a 2 x 1.2 wall hatch with its sill 0.9 m above the floor. 6 is 3 x 3.
+**Both thresholds of a pair have the same opening size and the same sill height above their floor.** The map is rigid: an off-centre entry comes out at the mirrored offset, so a smaller partner would put the player inside a wall. Sizes: 104 is 1.2 x 2.4. 1, 312 and 000 (and the cloakroom) are 1 x 2.1 (`OfficeLayout.Door`). 37 is 2.4 x 2.6. 412 is a 2 x 1.25 floor-level hatch you slide through (sill 0). 6 is 3 x 3.
 
 A threshold number pairs anywhere in the world, so **only the numbers below may appear on threshold plates**. The ranges hold an area's own unpaired door numbers: each must be unique, in range, and must not appear on any other threshold. Text that isn't on a threshold (memos, clocks, signs, letterboard menus) may use any number.
 
@@ -215,8 +215,8 @@ A threshold number pairs anywhere in the world, so **only the numbers below may 
 | 31-36, 38-42 | A3 aisle signs (one each) | letterboard | along each aisle | ordinary, and a source of digit tiles |
 | 312 | A3 north records-room door | brass | into A3 | shortcut |
 | 312 | A4 balcony door | brass | onto balcony | shortcut |
-| 412 | A4 kitchen roller shutter | brass | into cafeteria | shortcut |
-| 412 | A3 service hatch (wall, near entry) | brass | into A3 | shortcut |
+| 412 | A4 kitchen roller shutter (half-raised, 2 x 1.25 at floor level) | brass | into cafeteria | shortcut |
+| 412 | A3 service hatch (floor level, 2 x 1.25, slide through, near entry) | brass | into A3 | shortcut |
 | 6 | A5 floor hatch (bottom of void) | brass | up | launch (K3) |
 | 6 | A2 west wall high opening | brass | +X, 30 deg up | launch exit |
 | 000 | A7 free-standing exterior door | brass (large, lit) | east (+X, away from the building) | the way out (K5) |

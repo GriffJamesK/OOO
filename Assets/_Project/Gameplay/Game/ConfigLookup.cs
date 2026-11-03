@@ -30,10 +30,18 @@ namespace Kit.Gameplay
             foreach (var c in configs) if (c != null) registered[c.GetType()] = c;
         }
 
-        /// <summary>The registered asset of type T, or a shared default instance.</summary>
+        /// <summary>
+        /// The registered asset of type T; in the Editor, the project's Config/&lt;TypeName&gt;.asset
+        /// (so builders running in edit mode get real materials and values); otherwise a shared
+        /// default instance.
+        /// </summary>
         public static T Get<T>() where T : ConfigAsset
         {
             if (registered.TryGetValue(typeof(T), out var found) && found != null) return (T)found;
+#if UNITY_EDITOR
+            var asset = UnityEditor.AssetDatabase.LoadAssetAtPath<T>($"Assets/_Project/Config/{typeof(T).Name}.asset");
+            if (asset != null) return asset;
+#endif
             if (!defaults.TryGetValue(typeof(T), out var fallback) || fallback == null)
             {
                 fallback = ScriptableObject.CreateInstance<T>();

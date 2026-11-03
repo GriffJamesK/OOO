@@ -45,8 +45,11 @@ namespace Kit.Editor
         }
 
         // Sockets (the atrium owns its four outer walls and cuts these openings; areas dress their side).
-        public static readonly Socket A1_Transom = new Socket(new Vector3(-20.25f, 16f + 2.6f, 2f), new Vector3(-19.75f, 16f + 3.4f, 4f), Vector3.left);
-        public static readonly Socket A1_Shutter = new Socket(new Vector3(-20.25f, 16f, -6f), new Vector3(-19.75f, 16f + 0.9f, -3f), Vector3.left);
+        // The standing capsule is 1.8 m tall and the sliding one 1.0 m: an airborne player needs a
+        // 2 m opening (the transom is a high window reached by a hop or wall run); the half-lowered
+        // shutter leaves 1.25 m, which a slide fits under and a standing player doesn't.
+        public static readonly Socket A1_Transom = new Socket(new Vector3(-20.25f, 16f + 1.6f, 1.2f), new Vector3(-19.75f, 16f + 3.6f, 2.8f), Vector3.left);
+        public static readonly Socket A1_Shutter = new Socket(new Vector3(-20.25f, 16f, -6f), new Vector3(-19.75f, 16f + 1.25f, -3f), Vector3.left);
         public static readonly Socket A3_Entry = new Socket(new Vector3(-2f, 12f, 29.75f), new Vector3(2f, 15f, 30.25f), Vector3.forward);
         public static readonly Socket A4_Entry = new Socket(new Vector3(19.75f, 4f, -3f), new Vector3(20.25f, 7f, 3f), Vector3.right);
         public static readonly Socket A5_L0 = new Socket(new Vector3(-20.25f, 0f, -26f), new Vector3(-19.75f, 3f, -22f), Vector3.left);
